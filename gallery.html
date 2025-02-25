@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - KenyaOnABudget Safaris</title>
+    <link rel="shortcut icon" href="logo1.png" type="image/x-icon">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f7f7f7;
+        }
+        
+        /* Header styles - UPDATED */
+        header {
+            background-color: #fff;
+            color: #333;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain; /* or object-fit: contain; */
+}
+
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #e67e22;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #e67e22;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        /* Gallery styles - Primary color updated */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            position: relative;
+            color: #333;
+        }
+        
+        .gallery-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #e67e22;
+            margin: 0.5rem auto;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-button {
+            background: transparent;
+            border: 1px solid #e67e22;
+            color: #e67e22;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .filter-button:hover,
+        .filter-button.active {
+            background: #e67e22;
+            color: white;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transform: translateY(40px);
+            opacity: 0;
+            animation: fadeInUp 0.5s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .item-overlay {
+            transform: translateY(0);
+        }
+        
+        .item-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-category {
+            font-size: 0.8rem;
+            color: #e67e22;
+        }
+        
+        /* Lightbox styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-lightbox:hover {
+            color: #e67e22;
+        }
+        
+        /* Footer styles - UPDATED */
+        footer {
+            background: #2a2a2a;
+            color: #f0f0f0;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #e67e22, #f39c12);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: #e67e22;
+            margin-top: 0.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: #e67e22;
+            transform: translateX(5px);
+        }
+        
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            color: #aaa;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: #e67e22;
+        }
+        
+        .social-icons {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #444;
+            color: white;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .copyright a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .copyright a:hover {
+            color: #e67e22;
+        }
+        
+        /* Responsive styles - UPDATED for mobile image descriptions */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -80%;
+                width: 80%;
+                height: 100vh;
+                background: #fff;
+                flex-direction: column;
+                padding: 5rem 2rem;
+                transition: right 0.4s ease;
+                z-index: 101;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .hamburger {
+                display: block;
+                z-index: 102;
+            }
+            
+            .bar {
+                display: block;
+                width: 25px;
+                height: 3px;
+                margin: 5px auto;
+                background: #333;
+                transition: all 0.3s ease;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+                background: #e67e22;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+                background: #e67e22;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            /* Mobile image descriptions that appear on scroll */
+            .gallery-item .item-overlay {
+                transform: translateY(0);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .gallery-item.in-view .item-overlay {
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-button {
+                width: 80%;
+                margin: 0.25rem 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animation for footer links */
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .footer-links li {
+            opacity: 0;
+            animation: slideIn 0.4s forwards;
+        }
+        
+        .footer-links li:nth-child(1) { animation-delay: 0.1s; }
+        .footer-links li:nth-child(2) { animation-delay: 0.2s; }
+        .footer-links li:nth-child(3) { animation-delay: 0.3s; }
+        .footer-links li:nth-child(4) { animation-delay: 0.4s; }
+        .footer-links li:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section - UPDATED -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo1.png" alt="Gallery Logo">
+                <span class="logo-text">OurGallery</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pricing.html">Our Packages</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="volunteer.html">Volunteer</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Gallery Section -->
+    <section class="gallery-container">
+        <h1 class="gallery-title">Our Photo Gallery</h1>
+        
+        <div class="filter-buttons">
+            <button class="filter-button active" data-filter="all">All</button>
+            <button class="filter-button" data-filter="safari">Safari Moments</button>
+            <button class="filter-button" data-filter="video">Videos</button>
+            <button class="filter-button" data-filter="hotel">Hotel</button>
+            <button class="filter-button" data-filter="air">AirBnB</button>
+            <button class="filter-button" data-filter="host">Host Family</button>
+            <button class="filter-button" data-filter="budget">Budget Accomodation</button>
+           
+            
+            
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/faith.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0005.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0050.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0007.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0008.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0047.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0010.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0046.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0012.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0013.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0014.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0015.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0016.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0017.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0018.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0019.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0020.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0021.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0022.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0023.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0024.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0025.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0026.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0027.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0028.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0029.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0052.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0031.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0041.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0045.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0034.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="safari" style="animation-delay: 0.1s">
+                <img src="images/IMG-20250219-WA0035.jpg" alt="">
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+           
+           
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0032.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0033.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0038.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0039.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0040.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0042.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0043.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0044.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0048.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0053.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0049.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <div class="gallery-item" data-category="video" style="animation-delay: 0.1s">
+                <video width="800" height="500" controls>
+                    <source src="Video/VID-20250219-WA0051.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <div class="item-overlay">
+                    
+                </div>
+            </div>
+            <!-- Gallery items - using placeholder images -->
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation1.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Nairobi Grand Hotel</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation2.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Nairobi Grand Hotel</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation3.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Nairobi Grand Hotel</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation9.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Nairobi Grand Hotel</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation4.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Ocean Breeze Resort</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation5.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Ocean Breeze Resort</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation6.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Ocean Breeze Resort</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation7.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Ocean Breeze Resort</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div><div class="gallery-item" data-category="hotel" style="animation-delay: 0.1s">
+                <img src="images/accomodation8.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Ocean Breeze Resort</h3>
+                    <p class="item-category">Hotel</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation14.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Cozy City Apartment</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation11.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Cozy City Apartment</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div><div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation12.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Cozy City Apartment</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div><div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation13.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Lakeside Cottage</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation15.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Lakeside Cottage</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation16.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Lakeside Cottage</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation17.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">City Haven</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="air" style="animation-delay: 0.1s">
+                <img src="images/accomodation18.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">City Haven</h3>
+                    <p class="item-category">AirBnB</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="host" style="animation-delay: 0.1s">
+                <img src="images/accomodation19.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Nakuru</h3>
+                    <p class="item-category">Host Family</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="host" style="animation-delay: 0.1s">
+                <img src="images/accomodation21.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Nairobi</h3>
+                    <p class="item-category">Host Family</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="host" style="animation-delay: 0.1s">
+                <img src="images/accomodation22.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Eldoret</h3>
+                    <p class="item-category">Host Family</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="budget" style="animation-delay: 0.1s">
+                <img src="images/accomodation23.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Backpackers Haven</h3>
+                    <p class="item-category">Budget Accomodation</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="budget" style="animation-delay: 0.1s">
+                <img src="images/accomodation24.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Backpackers Haven</h3>
+                    <p class="item-category">Budget Accomodation</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="budget" style="animation-delay: 0.1s">
+                <img src="images/accomodation25.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Backpackers Haven</h3>
+                    <p class="item-category">Budget Accomodation</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="budget" style="animation-delay: 0.1s">
+                <img src="images/accomodation26.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Seaside Budget Lodge</h3>
+                    <p class="item-category">Budget Accomodation</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="budget" style="animation-delay: 0.1s">
+                <img src="images/accomodation27.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Seaside Budget Lodge</h3>
+                    <p class="item-category">Budget Accomodation</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="budget" style="animation-delay: 0.1s">
+                <img src="images/accomodation28.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Seaside Budget Lodge</h3>
+                    <p class="item-category">Budget Accomodation</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-category="budget" style="animation-delay: 0.1s">
+                <img src="images/accomodation29.jpg" alt="">
+                <div class="item-overlay">
+                    <h3 class="item-title">Seaside Budget Lodge</h3>
+                    <p class="item-category">Budget Accomodation</p>
+                </div>
+            </div>
+            
+            
+                        
+            
+            
+            
+        </div>
+    </section>
+    
+    <!-- Lightbox for Image Preview -->
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <img class="lightbox-img" src="" alt="Enlarged gallery image">
+            <span class="close-lightbox">&times;</span>
+        </div>
+    </div>
+    
+    <!-- Footer Section - UPDATED -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="logo1.png" alt="Gallery Logo">
+                    <span class="footer-logo-text">MyGallery</span>
+                </div>
+                <p>We are passionate about photography and sharing beautiful moments through our carefully curated collection.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/profile.php?id=61569377127591
+                    "><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/kenyaonabudgetsafaris_?igsh=MXRsYmF5aDBoM3A1Ng%3D%3D&utm_source=qr
+
+                    "><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@kenyaonabudgetsafaris?_t=ZM-8tgxBIi9CUQ&_r=1
+                    "><i class="fab fa-tiktok"></i></a>
+                    <!-- <a href="#"><i class="fab fa-pinterest-p"></i></a> -->
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="pricing.html"><i class="fas fa-chevron-right"></i> Our Packages</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> House 22 Hillside Homes Kibiko Ngong, Kajiado West. P.o. BOx 00208 Kenya</p>
+                    <p><i class="fas fa-phone-alt"></i> +44 7376 642148</p>
+                    <p><i class="fas fa-envelope"></i> info@kenyaonabudgetsafaris.co.uk</p>
+                    <!-- <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM</p> -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 Kenya On a Budget Safaris. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e67e22;"></i> by <a href="mailto:amiraalexobbs@gmail.com">Alex Obbs</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for gallery functionality - UPDATED for mobile -->
+    <script>
+        // Toggle mobile menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking a link on mobile
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+        
+        // Filter gallery items
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        
+                        // Reset animation
+                        item.style.animation = 'none';
+                        item.offsetHeight; // Trigger reflow
+                        item.style.animation = 'fadeInUp 0.5s forwards';
+                        
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Lightbox functionality
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.querySelector('.lightbox-img');
+        const closeBtn = document.querySelector('.close-lightbox');
+        
+        galleryItems.forEach(item => {
+            const img = item.querySelector('img');
+            
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Animate gallery items on scroll and handle mobile overlay
+        function checkScroll() {
+            const triggerBottom = window.innerHeight * 0.8;
+            
+            galleryItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                
+                if (itemTop < triggerBottom) {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                    
+                    // Add 'in-view' class for mobile overlay
+                    if (window.innerWidth <= 768) {
+                        item.classList.add('in-view');
+                    }
+                } else if (window.innerWidth <= 768) {
+                    item.classList.remove('in-view');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+        
+        // Trigger initial check
+        checkScroll();
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

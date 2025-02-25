@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer in Kenya - Make 2025 the Year of Giving Back!</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="logo1.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #e67e22;
+            --secondary: #2ecc71;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --primary-color: #e67e22;
+            --secondary-color: #2ecc71;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --background-color: #f3f4f6;
+            --text-color: #1f2937;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+        }
+
+        /* Navigation Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideInFromLeft {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Enhanced hero section */
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInFromLeft 1.5s ease-out;
+        }
+
+        .hero-content .btn {
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        /* Enhanced cards */
+        .opportunity-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .opportunity-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .opportunity-card:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* Enhanced benefits section */
+        .benefit-item {
+            position: relative;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .benefit-item i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Enhanced included section */
+        .included-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .included-item:hover {
+            transform: translateX(10px);
+            background: var(--primary);
+            color: white;
+        }
+
+        .included-item i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+
+        .included-item:hover i {
+            color: white;
+        }
+
+        /* Enhanced price duration */
+        .price-duration {
+            background: linear-gradient(135deg, var(--primary), #f39c12);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(230, 126, 34, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .price-duration:hover {
+            transform: rotateX(10deg) rotateY(10deg);
+        }
+
+        /* Floating shapes background */
+        .shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.5s backwards;
+        }
+
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .opportunities {
+            background: var(--light);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .opportunity-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefits {
+            background: white;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .included {
+            background: var(--light);
+        }
+
+        .included-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .included-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .requirements {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .price-duration {
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 400px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #d35400;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        fieldset {
+            border: none;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        fieldset:hover {
+            transform: translateY(-2px);
+        }
+
+        legend {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            padding: 0 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        input[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        input[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .error {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            form {
+                padding: 1rem;
+            }
+
+            fieldset {
+                padding: 1rem;
+            }
+        }
+
+        .success-message {
+            display: none;
+            background-color: var(--success-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        
+
+        /* Footer Styles */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .footer-section h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Enhanced Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger.active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active .line2 {
+                opacity: 0;
+            }
+
+            .hamburger.active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .hero-content {
+                padding-top: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <a href="index.html"><img src="logo1.png" alt="Logo"></a>
+                <span class="logo-text">Kenya On a Budget Safaris</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item"><a href="pricing.html" class="nav-link">Our Packages</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Keep existing sections -->
+    <!-- ... (all your existing sections remain the same) ... -->
+    <div class="shapes">
+        <div class="shape" style="top: 20%; left: 10%; animation: float 6s infinite;"></div>
+        <div class="shape" style="top: 60%; right: 10%; animation: float 8s infinite;"></div>
+        <div class="shape" style="bottom: 20%; left: 50%; animation: float 7s infinite;"></div>
+    </div>
+
+    <section class="hero">
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <img src="vol1.jpg" alt="Kenya Landscape 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="vol2.jpg" alt="Kenya Landscape 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="vol3.jpg" alt="Kenya Landscape 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="vol4.jpg" alt="Kenya Landscape 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="vol5.jpg" alt="Kenya Landscape 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="vol6.jpg" alt="Kenya Landscape 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="vol7.jpg" alt="Kenya Landscape 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="vol8.jpg" alt="Kenya Landscape 1">
+                </div>
+            </div>
+        </div>
+
+        <!-- Previous hero content remains the same -->
+        <div class="hero-content">
+            <h1 data-aos="fade-down">Make 2025 the Year of Giving Back!</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Join KenyaOnABudgetSafaris and immerse yourself in meaningful volunteer work—from orphanages and hospitals to wildlife conservation and community development. With flexible opportunities, 24/7 support, and a chance to explore Kenya’s beauty, your journey starts here..
+            </p>
+
+        </div>
+    </section>
+
+    <section id="opportunities" class="section">
+        <h2 data-aos="fade-down">Volunteer Opportunities</h2>
+        <div class="opportunities">
+            <div class="opportunity-card" data-aos="flip-left">
+                <i class="fas fa-child"></i>
+                <h3>Orphanage Support</h3>
+                <p>Help care for children and support their growth in local orphanages.</p>
+            </div>
+            <div class="opportunity-card" data-aos="flip-left" data-aos-delay="100">
+                <i class="fas fa-book-reader"></i>
+                <h3>Education</h3>
+                <p>Teach in local schools and inspire young minds to reach their full potential.</p>
+            </div>
+            <div class="opportunity-card" data-aos="flip-left" data-aos-delay="200">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Healthcare</h3>
+                <p>Work in community clinics or large hospitals to support medical staff.</p>
+            </div>
+            <div class="opportunity-card" data-aos="flip-left" data-aos-delay="300">
+                <i class="fas fa-paw"></i>
+                <h3>Wildlife Conservation</h3>
+                <p>Collaborate with KWS for environmental protection and wildlife preservation.</p>
+            </div>
+            <div class="opportunity-card" data-aos="flip-left" data-aos-delay="300">
+                <i class="fas fa-user"></i>
+                <h3>Government Offices</h3>
+                <p>Assist in administrative tasks to improve services.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section benefits">
+        <h2 data-aos="fade-down">Your Benefits</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item" data-aos="zoom-in-right">
+                <i class="fas fa-certificate"></i>
+                <h3>Completion Certificate</h3>
+                <p>Receive official recognition for your volunteer service</p>
+            </div>
+            <div class="benefit-item" data-aos="zoom-in">
+                <i class="fas fa-globe-africa"></i>
+                <h3>Cultural Immersion</h3>
+                <p>Live with host families and experience authentic Kenyan culture</p>
+            </div>
+            <div class="benefit-item" data-aos="zoom-in-left">
+                <i class="fas fa-mountain"></i>
+                <h3>Adventure</h3>
+                <p>Explore Kenya's iconic landscapes and wildlife</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section included">
+        <h2 data-aos="fade-down">What's Included</h2>
+        <div class="included-list">
+            <div class="included-item" data-aos="fade-right">
+                <i class="fas fa-utensils"></i>
+                <p>Daily meals provided for the duration of your stay</p>
+            </div>
+            <div class="included-item" data-aos="fade-right" data-aos-delay="100">
+                <i class="fas fa-bus"></i>
+                <p> Covered Transport to and from the volunteer center</p>
+            </div>
+            <div class="included-item" data-aos="fade-right" data-aos-delay="200">
+                <i class="fas fa-passport"></i>
+                <p>Visa assistance and processing</p>
+            </div>
+            <div class="included-item" data-aos="fade-right" data-aos-delay="300">
+                <i class="fas fa-shield-alt"></i>
+                <p>24/7 security and support</p>
+            </div>
+            <div class="included-item" data-aos="fade-right" data-aos-delay="300">
+                <i class="fas fa-certificate"></i>
+                <p>Completion Certificate</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="price-duration" data-aos="zoom-in">
+        <h2 style="color: white;">Program Details</h2>
+        <p><i class="fas fa-clock"></i> Duration: 2 weeks</p>
+        <p><i class="fas fa-pound-sign"></i> Price: £500</p>
+    </div>
+    <section class="section benefits">
+        <h2 data-aos="fade-down">Working Schedule</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item" data-aos="zoom-in-right">
+                <i class="fas fa-certificate"></i>
+                <h3>Monday, Wednesday, and Friday:
+                </h3>
+                <p> Volunteer activities.</p>
+            </div>
+            <div class="benefit-item" data-aos="zoom-in">
+                <i class="fas fa-globe-africa"></i>
+                <h3>Saturday and Sunday: 
+                </h3>
+                <p>Days off for personal exploration or arranged activities (safaris, tours, etc.).</p>
+            </div>
+            <div class="benefit-item" data-aos="zoom-in-left">
+                <i class="fa-solid fa-triangle-exclamation" style="color: red;"></i>
+
+                <h3>Note</h3>
+                <p>Flights are not included, but we can assist you in finding the best deals.
+
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="section included" id="terms">
+        <h2 data-aos="fade-down">Requirements</h2>
+        <div class="included-list">
+            <div class="included-item" data-aos="fade-right">
+                <i class="fa-solid fa-user-group"></i>
+
+                <p>Ages: 16+ (No maximum age limit)For under-18s: Signed parental approval letter and contact details.
+                </p>
+            </div>
+            <div class="included-item" data-aos="fade-right" data-aos-delay="100">
+                <i class="fa-solid fa-globe"></i>
+                <p> A willingness to immerse yourself in the local culture and respect community values.
+
+                </p>
+            </div>
+            
+            <div class="included-item" data-aos="fade-right" data-aos-delay="300">
+                <i class="fa-solid fa-briefcase-medical"></i>
+                <p>Up-to-date malaria and yellow fever vaccinations or anti-malaria pills.
+                </p>
+            </div>
+            <div class="included-item" data-aos="fade-right" data-aos-delay="300">
+                <i class="fas fa-certificate"></i>
+                <p>A clean DBS certificate or good conduct certificate.
+                </p>
+            </div>
+        </div>
+    </section>
+    <div class="success-message" id="successMessage">
+        Form submitted successfully! We'll be in touch soon.
+    </div>
+    <form action="https://formspree.io/f/mldgbwzd" method="POST" id="volunteerForm">
+        <!-- Your existing form HTML here -->
+        
+        <h3>To join our volunteering program, fill out the form below with the following details:
+            <p>We will review your application and contact you with further details.
+
+            </p>
+            <br>
+
+        </h3>
+        <fieldset>
+            <legend>Personal Information</legend>
+            <label for="fullName">Full Legal Name:</label>
+            <input type="text" id="fullName" name="Full Legal Name" placeholder="Enter your full name" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="Address" placeholder="Enter your full address" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="Date of Birth" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="Phone Number" placeholder="e.g., +44 123 456 7890" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Volunteer Preferences</legend>
+            <label for="education">Level of Education:</label>
+            <input type="text" id="education" name="Education" placeholder="e.g., Bachelor's Degree" required>
+
+            <label for="activity">Preferred Volunteer Activity:</label>
+            <select id="activity" name="Preferred Activity" required>
+                <option value="orphanage">Orphanage</option>
+                <option value="school">School</option>
+                <option value="hospital">Hospital</option>
+                <option value="clinic">Clinic</option>
+                <option value="wildlife">Wildlife Conservation</option>
+                <option value="government">Government Office</option>
+            </select>
+
+            <label for="dates">Preferred Dates:</label>
+            <input type="date" id="dates" name="Preferred Dates" required>
+
+            <label for="gender">Gender (Assigned at Birth):</label>
+            <select id="gender" name="Gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="location">Preferred Location:</label>
+            <select id="location" name="Preferred Location" required>
+                <option value="Nairobi">Nairobi</option>
+                <option value="Nakuru">Nakuru</option>
+                <option value="Mombasa">Mombasa</option>
+            </select>
+
+            <label for="currency">Select Currency:</label>
+            <select id="currency" name="Currency" required>
+                <option value="GBP">GBP (£)</option>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>Emergency Contact Information</legend>
+            <label for="emergencyName">Emergency Contact Name:</label>
+            <input type="text" id="emergencyName" name="Emergency Contact Name" placeholder="Full Name" required>
+
+            <label for="emergencyRelation">Relationship:</label>
+            <input type="text" id="emergencyRelation" name="Emergency Relationship" placeholder="e.g., Parent, Sibling, Friend" required>
+
+            <label for="emergencyPhone">Emergency Contact Phone:</label>
+            <input type="tel" id="emergencyPhone" name="Emergency Contact Phone" placeholder="e.g., +44 123 456 7890" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Terms and Conditions</legend>
+            <p>Please ensure you have read and understood the <a href="#terms" target="_blank">terms and conditions</a> before submitting.</p>
+            <label>
+                <input type="checkbox" id="agreement" name="Agreement" required>
+                I confirm that I have read, understood, and agree to the terms and conditions of volunteering with Kenya On A Budget Safaris.
+            </label>
+        </fieldset>
+
+        <input type="submit" value="Submit"> <br>
+        <br>
+        <p>We aim to process your application within 1 working day but the entire process could take 2weeks-1month depending on the visa processing times.
+
+        </p>
+        
+    </form>
+
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Our Mission</h3>
+                <p>We are dedicated to creating meaningful volunteer experiences while making a positive impact in Kenya.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=61569377127591
+
+                    "><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@kenyaonabudgetsafaris?_t=ZM-8tgxBIi9CUQ&_r=1
+
+                    "><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/kenyaonabudgetsafaris_?igsh=MXRsYmF5aDBoM3A1Ng%3D%3D&utm_source=qr
+
+
+                    "><i class="fab fa-instagram"></i></a>
+                
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="pricing.html" class="nav-link">Our Packages</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-phone"></i> +44 7376 642148</p>
+                <p><i class="fas fa-envelope"></i> info@kenyaonabudgetsafaris.co.uk</p>
+                
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Kenya On a Budget Safaris. All rights reserved.</p>
+        </div>
+    </footer>
+    <div id="cookie-consent-container"></div>
+<script>
+    // Load the cookie consent HTML
+    fetch('cookie-consent.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('cookie-consent-container').innerHTML = html;
+            // Load the cookie consent JavaScript after HTML is loaded
+            const script = document.createElement('script');
+            script.src = 'cookie-consent.js';
+            document.body.appendChild(script);
+        });
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true,
+            offset: 120,
+            easing: 'ease-in-out'
+        });
+        // Carousel functionality
+        const carousel = document.querySelector('.carousel-inner');
+        const items = document.querySelectorAll('.carousel-item');
+        let currentIndex = 0;
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % items.length;
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // Auto-advance carousel every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Navigation menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('volunteerForm');
+            const successMessage = document.getElementById('successMessage');
+
+            // Add error message elements
+            const inputs = form.querySelectorAll('input[required], select[required]');
+            inputs.forEach(input => {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error';
+                errorDiv.textContent = `Please enter a valid ${input.name}`;
+                input.parentNode.insertBefore(errorDiv, input.nextSibling);
+            });
+
+            // Validate phone numbers
+            function validatePhone(input) {
+                const phoneRegex = /^\+?[\d\s-]{10,}$/;
+                return phoneRegex.test(input.value);
+            }
+
+            // Handle form submission
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Reset error messages
+                form.querySelectorAll('.error').forEach(error => {
+                    error.classList.remove('visible');
+                });
+
+                // Validate required fields
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        isValid = false;
+                        input.nextSibling.classList.add('visible');
+                    }
+                    
+                    if ((input.id === 'phone' || input.id === 'emergencyPhone') && !validatePhone(input)) {
+                        isValid = false;
+                        input.nextSibling.classList.add('visible');
+                    }
+                });
+
+                if (isValid) {
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: new FormData(form),
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            successMessage.style.display = 'block';
+                            form.reset();
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 5000);
+                        } else {
+                            throw new Error('Form submission failed');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('There was an error submitting the form. Please try again.');
+                    }
+                }
+            });
+
+            // Add animation to fieldsets on scroll
+            const fieldsets = document.querySelectorAll('fieldset');
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            fieldsets.forEach(fieldset => {
+                fieldset.style.opacity = '0';
+                fieldset.style.transform = 'translateY(20px)';
+                fieldset.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(fieldset);
+            });
+        });
+    </script>
+</body>
+</html>

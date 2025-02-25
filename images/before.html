@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    opacity: 0;
+    z-index: 1001;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    transition: all 0.3s ease-out;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+    color: #e67e22;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #e67e22;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.btn-primary {
+    background: #e67e22;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #d35400;
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+</style>
+
+<div id="datepickerModal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Select Your Travel Date</h2>
+        </div>
+        <form id="travelDateForm">
+            <div class="form-group">
+                <label for="arrivalDate">Arrival Date</label>
+                <input type="date" id="arrivalDate" required>
+                <div class="error-message" id="dateError">Please select a future date</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="arrivalTime">Arrival Time</label>
+                <input type="time" id="arrivalTime" required>
+                <div class="error-message" id="timeError">Please select a valid time</div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary">
+                    Confirm
+                    <div class="loading-spinner"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+    <a href=""></a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('datepickerModal');
+    const modalContent = modal.querySelector('.modal');
+    const form = document.getElementById('travelDateForm');
+    const dateInput = document.getElementById('arrivalDate');
+    const timeInput = document.getElementById('arrivalTime');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const dateError = document.getElementById('dateError');
+    const timeError = document.getElementById('timeError');
+    const spinner = document.querySelector('.loading-spinner');
+
+    // Modify the bookPackage function to show modal
+    window.bookPackage = function(packageId, amount, packageName) {
+        modal.style.display = 'block';
+        setTimeout(() => modalContent.classList.add('active'), 10);
+        
+        // Set minimum date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.min = tomorrow.toISOString().split('T')[0];
+        
+        // Store package details for form submission
+        form.dataset.packageId = packageId;
+        form.dataset.amount = amount;
+        form.dataset.packageName = packageName;
+    };
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const selectedDate = new Date(dateInput.value);
+        const now = new Date();
+        
+        if (selectedDate <= now) {
+            dateError.style.display = 'block';
+            dateInput.classList.add('shake');
+            setTimeout(() => dateInput.classList.remove('shake'), 500);
+            return;
+        }
+
+        spinner.style.display = 'inline-block';
+        
+        try {
+            // Get the stored package details
+            const packageId = form.dataset.packageId;
+            const amount = form.dataset.amount;
+            const packageName = form.dataset.packageName;
+            
+            // Combine date and time
+            const arrivalDateTime = new Date(dateInput.value + 'T' + timeInput.value);
+            
+            // Call the original bookPackage function with the selected date
+            await window.originalBookPackage(packageId, amount, packageName, arrivalDateTime);
+            
+            modal.style.display = 'none';
+            modalContent.classList.remove('active');
+        } catch (error) {
+            console.error('Booking error:', error);
+        } finally {
+            spinner.style.display = 'none';
+        }
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        modalContent.classList.remove('active');
+        form.reset();
+        dateError.style.display = 'none';
+        timeError.style.display = 'none';
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            modalContent.classList.remove('active');
+            form.reset();
+        }
+    });
+
+    // Reset error messages when inputs change
+    dateInput.addEventListener('input', () => {
+        dateError.style.display = 'none';
+    });
+
+    timeInput.addEventListener('input', () => {
+        timeError.style.display = 'none';
+    });
+});
+</script>
+</head>
+<body>
+</body>
+</html>

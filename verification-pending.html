@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Your Email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-image: url('accomodation17.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .email-icon {
+            width: 80px;
+            height: 80px;
+            background: #e67e22;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .email-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        h2 {
+            color: #e67e22;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .status-message {
+            color: #2d3436;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .steps {
+            text-align: left;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(230, 126, 34, 0.1);
+            border-radius: 8px;
+        }
+
+        .steps ol {
+            margin-left: 1.5rem;
+            color: #2d3436;
+        }
+
+        .steps li {
+            margin: 0.8rem 0;
+            line-height: 1.4;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #e67e22;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 1rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success-message {
+            color: #27ae60;
+            margin-top: 1rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .email-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .email-icon i {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="email-icon">
+            <i class="fas fa-envelope"></i>
+        </div>
+        <h2>Verify Your Email</h2>
+        <p class="status-message">
+            We've sent a verification link to your email address. Please verify your account to continue.
+        </p>
+        
+        <div class="steps">
+            <ol>
+                <li>Check your email inbox</li>
+                <li>Click the verification link in the email</li>
+                <li>If you don't see the email, check your spam folder</li>
+                <li>Once verified, you can return to login</li>
+            </ol>
+        </div>
+
+        <button class="btn" onclick="resendVerification()">
+            <i class="fas fa-redo"></i>
+            <span>Resend Verification Email</span>
+            <div class="spinner" id="resendSpinner"></div>
+        </button>
+        
+        <button class="btn" onclick="window.location.href='login.html'">
+            <i class="fas fa-arrow-left"></i>
+            <span>Return to Login</span>
+        </button>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+    </div>
+
+    <!-- Import Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // Your Firebase config (same as in your login page)
+        const firebaseConfig = {
+  apiKey: "AIzaSyAkT263nxI1qdMvgcZqS2M37-C4OwYL2I0",
+  authDomain: "kenya-on-a-budget-safaris.firebaseapp.com",
+  projectId: "kenya-on-a-budget-safaris",
+  storageBucket: "kenya-on-a-budget-safaris.firebasestorage.app",
+  messagingSenderId: "857055399633",
+  appId: "1:857055399633:web:8531f564a3ffc3d0f1bff0"
+};
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            const successElement = document.getElementById('successMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            successElement.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            const errorElement = document.getElementById('errorMessage');
+            const successElement = document.getElementById('successMessage');
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            errorElement.style.display = 'none';
+        }
+
+        function toggleSpinner(show) {
+            document.getElementById('resendSpinner').style.display = show ? 'block' : 'none';
+        }
+
+        async function resendVerification() {
+            toggleSpinner(true);
+            
+            try {
+                const user = firebase.auth().currentUser;
+                
+                if (user) {
+                    await user.sendEmailVerification();
+                    showSuccess('Verification email sent! Please check your inbox.');
+                } else {
+                    showError('Please sign up again to receive a verification email.');
+                }
+            } catch (error) {
+                showError('Error sending verification email. Please try again later.');
+                console.error(error);
+            }
+            
+            toggleSpinner(false);
+        }
+
+        // Check if user is already verified
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user && user.emailVerified) {
+                window.location.href = 'before.html'; // Redirect to welcome page if already verified
+            }
+        });
+    </script>
+</body>
+</html>

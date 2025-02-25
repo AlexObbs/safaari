@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - KenyaOnABudget Safaris</title>
+    <link rel="shortcut icon" href="logo1.png" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --text-color: #333;
+            --light-bg: #f9f6f2;
+            --white: #ffffff;
+            --divider: #eaeaea;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Your header would go here */
+        
+        .terms-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .terms-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .terms-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .effective-date {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        
+        .toc-container {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .toc-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .toc-list {
+            columns: 2;
+            list-style-type: none;
+        }
+        
+        @media (max-width: 768px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        
+        .toc-list li {
+            margin-bottom: 0.75rem;
+            break-inside: avoid;
+        }
+        
+        .toc-list a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        
+        .toc-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .toc-list a::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .toc-list a:hover::before {
+            transform: scale(1.5);
+        }
+        
+        .terms-section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+        }
+        
+        .terms-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--divider);
+            padding-bottom: 0.5rem;
+        }
+        
+        .subsection-title {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--primary-dark);
+        }
+        
+        .terms-content p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .definition-list {
+            list-style-type: none;
+            margin-left: 1rem;
+        }
+        
+        .definition-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .definition-list li::before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .contact-section {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .contact-title {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info {
+            display: inline-block;
+            margin: 0.5rem 1rem;
+        }
+        
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-decoration: none;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .terms-header h1 {
+                font-size: 2rem;
+            }
+            
+            .toc-container, .contact-section {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Your header would go here -->
+    
+    <div class="terms-container">
+        <div class="terms-header">
+            <h1>KENYAONABUDGET SAFARIS</h1>
+            <h2 style="margin-bottom: 20PX;">TERMS AND CONDITIONS</h2>
+            <div class="effective-date">Effective Date: 15/02/2025</div>
+        </div>
+        
+        <div class="toc-container">
+            <h2 class="toc-title">TABLE OF CONTENTS</h2>
+            <ul class="toc-list">
+                <li><a href="#introduction">1. Introduction and Overview</a></li>
+                <li><a href="#definitions">2. Definitions and Interpretations</a></li>
+                <li><a href="#booking">3. Booking Services</a></li>
+                <li><a href="#payment">4. Payment Terms</a></li>
+                <li><a href="#cancellation">5. Cancellation and Refund Policy</a></li>
+                <li><a href="#special-conditions">6. Special Conditions for Refunds</a></li>
+                <li><a href="#user-registration">7. User Registration and Account Obligations</a></li>
+                <li><a href="#service-partnerships">8. Service Partnerships and Third-Party Providers</a></li>
+                <li><a href="#liability">9. Liability, Disclaimers, and Limitations</a></li>
+                <li><a href="#dispute">10. Dispute Resolution</a></li>
+                <li><a href="#governing-law">11. Governing Law and Jurisdiction</a></li>
+                <li><a href="#modifications">12. Modifications to the Terms and Conditions</a></li>
+                <li><a href="#termination">13. Termination of Services</a></li>
+                <li><a href="#force-majeure">14. Force Majeure</a></li>
+                <li><a href="#notices">15. Notices and Communication</a></li>
+                <li><a href="#entire-agreement">16. Entire Agreement</a></li>
+                <li><a href="#contact">17. Contact Information</a></li>
+            </ul>
+        </div>
+        
+        <div class="terms-content">
+            <section id="introduction" class="terms-section">
+                <h2 class="section-title">1. INTRODUCTION AND OVERVIEW</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">1.1 Purpose of Terms and Conditions</h3>
+                    <p>These Terms and Conditions ("Terms") govern the contractual relationship between
+                    you ("User", "Customer") and Kenya on a Budget Safaris regarding the provision of
+                    online booking services for safari itineraries, as well as related services provided
+                    through our Website ([kenyaonabudgetsafaris.co.uk]). These Terms set forth the
+                    rights, responsibilities, and obligations of both parties with respect to the booking,
+                    payment, cancellation, and overall management of our travel services.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">1.2 Acceptance of Terms</h3>
+                    <p>By accessing, browsing, or using our booking services, you agree to be bound by
+                    these Terms. If you do not agree with any portion of these Terms, you must refrain
+                    from using our services. Continued use constitutes your acceptance of any
+                    modifications, which will be posted on the Website with an updated effective date.</p>
+                </div>
+            </section>
+            
+            <section id="definitions" class="terms-section">
+                <h2 class="section-title">2. DEFINITIONS AND INTERPRETATIONS</h2>
+                <p>For the purposes of these Terms:</p>
+                <ul class="definition-list">
+                    <li>"Booking" refers to the reservation of a safari itinerary via our online platform.</li>
+                    <li>"Down Payment" means the initial non-refundable deposit required to secure a booking.</li>
+                    <li>"User" or "Customer" denotes any individual or entity who uses the booking services
+                    provided by Kenya on a Budget Safaris.</li>
+                    <li>"Itinerary" refers to the travel package, including details of accommodation, transport,
+                    activities, and other services, offered through the Website.</li>
+                    <li>"Cancellation" refers to the act of a Customer requesting to cancel a confirmed booking.</li>
+                    <li>"Exceptional Circumstances" include documented, unforeseen events such as the death of
+                    an immediate family member (mother, father, son, daughter, wife, or husband) or an
+                    accident requiring hospitalization.</li>
+                </ul>
+            </section>
+            
+            <section id="booking" class="terms-section">
+                <h2 class="section-title">3. BOOKING SERVICES</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">3.1 Description of Safari Itineraries</h3>
+                    <p>Kenya on a Budget Safaris provides a range of safari itineraries designed to offer
+                    memorable travel experiences in Kenya. Each itinerary is described in detail on the
+                    Website, including the destinations visited, accommodations provided, planned
+                    activities, and any ancillary services available. Our itineraries are subject to
+                    availability and may change from time to time.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">3.2 Online Booking Process</h3>
+                    <p>The online booking process is designed to be user-friendly and secure. To book a
+                    safari itinerary, you must complete the online booking form, provide all requested
+                    information, and agree to these Terms. Once your booking is submitted, you will
+                    receive a confirmation email outlining the details of your itinerary and the required
+                    down payment.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">3.3 Down Payment Requirements</h3>
+                    <p>A down payment is required for every booking made through the Website. This
+                    payment serves as a deposit to secure your booking and is processed via a secure
+                    payment gateway. The down payment amount and any additional payment details are
+                    clearly indicated during the booking process. You agree that by submitting your
+                    booking, you commit to paying the required down payment in accordance with these
+                    Terms.</p>
+                </div>
+            </section>
+            
+            <section id="payment" class="terms-section">
+                <h2 class="section-title">4. PAYMENT TERMS</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">4.1 Payment Processing</h3>
+                    <p>All payments on the Website are processed through secure third-party payment
+                    providers. You agree to provide accurate payment details and authorize us to charge
+                    the specified down payment amount. In the event of any payment processing issues,
+                    we reserve the right to cancel or suspend your booking.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">4.2 Billing and Transaction Security</h3>
+                    <p>Your billing information is handled with strict adherence to industry security
+                    standards. We utilize encryption and other protective measures to ensure your data is
+                    secure during transmission. However, you acknowledge that no security measures are
+                    infallible and accept the inherent risks of online transactions.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">4.3 Refund Limitations</h3>
+                    <p>Except as expressly provided in these Terms, down payments are non-refundable.
+                    Refunds, when applicable, are subject to the cancellation policies described in Section
+                    5. You agree that by making a booking, you accept the payment terms and refund
+                    limitations as set forth herein.</p>
+                </div>
+            </section>
+            
+            <section id="cancellation" class="terms-section">
+                <h2 class="section-title">5. CANCELLATION AND REFUND POLICY</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">5.1 General Cancellation Requirements</h3>
+                    <p>Cancellations must be requested in writing via our designated contact channels. To be
+                    eligible for a refund, cancellation requests must be submitted at least two weeks in
+                    advance of the scheduled start date of your itinerary. Any cancellation requests
+                    submitted less than two weeks before the start date will be subject to the conditions
+                    outlined in Section 5.3.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">5.2 Notice Period and Conditions</h3>
+                    <p>For a full or partial refund (subject to administrative fees where applicable), you must
+                    provide notice of cancellation no later than fourteen (14) days prior to the
+                    commencement of the booked itinerary. Failure to adhere to this notice period may
+                    result in forfeiture of the down payment or a reduced refund, as detailed in Section 6.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">5.3 Exceptions for Unforeseeable Circumstances</h3>
+                    <p>We understand that exceptional and unforeseen circumstances may arise. In cases
+                    where cancellation is requested due to unavoidable events—such as the death of an
+                    immediate family member (defined as your mother, father, son, daughter, wife, or
+                    husband) or an accident resulting in hospitalization—refunds may be considered even
+                    if the notice period is not met. Such exceptions require valid documentation and are
+                    subject to our review and discretion.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">5.4 Administrative Fees and Deductions</h3>
+                    <p>If a cancellation occurs within the stipulated notice period but under unavoidable
+                    circumstances as defined herein, please note that an administrative fee equal to 50%
+                    of the down payment may be deducted from the refund. This fee covers the costs
+                    associated with processing last-minute cancellations and any incurred administrative
+                    expenses.</p>
+                </div>
+            </section>
+            
+            <section id="special-conditions" class="terms-section">
+                <h2 class="section-title">6. SPECIAL CONDITIONS FOR REFUNDS</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">6.1 Unavoidable Last-Minute Cancellations</h3>
+                    <p>In the event of last-minute cancellations due to unavoidable circumstances (as
+                    described in Section 5.3), you must provide appropriate evidence, including but not
+                    limited to hospital records or a certified death certificate. Refunds under these
+                    conditions will be processed on a case-by-case basis, and the final amount refunded
+                    may be subject to a 50% administrative deduction.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">6.2 Documentation and Proof Requirements</h3>
+                    <p>To process a cancellation under exceptional circumstances, you are required to submit
+                    documentation verifying the unforeseen event. Acceptable forms of documentation
+                    include official letters, medical records, or death certificates as applicable. Failure to
+                    provide sufficient proof may result in the cancellation request being declined, and no
+                    refund will be issued.</p>
+                </div>
+            </section>
+            
+            <section id="user-registration" class="terms-section">
+                <h2 class="section-title">7. USER REGISTRATION AND ACCOUNT OBLIGATIONS</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">7.1 Registration Process</h3>
+                    <p>To access the booking services, you may need to register for an account on our
+                    Website. During registration, you are required to provide accurate personal
+                    information. Inaccuracies or deliberate misrepresentations may result in the
+                    termination of your account and any associated bookings.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">7.2 Maintaining Accurate Information</h3>
+                    <p>You agree to update your account information promptly should any changes occur.
+                    Failure to maintain accurate and current information may affect your ability to receive
+                    notifications or important updates regarding your bookings.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">7.3 Security of Account Details</h3>
+                    <p>You are responsible for safeguarding your account credentials. In the event of
+                    unauthorized access or any suspected breach of security, you must notify us
+                    immediately. We are not liable for any losses or damages arising from your failure to
+                    protect your account information.</p>
+                </div>
+            </section>
+            
+            <section id="service-partnerships" class="terms-section">
+                <h2 class="section-title">8. SERVICE PARTNERSHIPS AND THIRD-PARTY PROVIDERS</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">8.1 Relationships with Service Partners</h3>
+                    <p>Kenya on a Budget Safaris may collaborate with third-party service providers,
+                    including travel agents, transportation companies, and accommodation providers.
+                    These partnerships are designed to enhance the quality and diversity of our itineraries.
+                    However, these third-party providers are independent entities, and we do not assume
+                    liability for their performance or any issues arising from their services.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">8.2 Disclaimer of Responsibility for Third-Party Services</h3>
+                    <p>While we strive to select reputable partners, you acknowledge that any contract or
+                    agreement you enter into with a third-party provider is solely between you and that
+                    provider. Kenya on a Budget Safaris is not responsible for any disputes, liabilities, or
+                    losses arising from your dealings with third parties.</p>
+                </div>
+            </section>
+            
+            <section id="liability" class="terms-section">
+                <h2 class="section-title">9. LIABILITY, DISCLAIMERS, AND LIMITATIONS</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">9.1 Limitation of Liability</h3>
+                    <p>Under no circumstances shall Kenya on a Budget Safaris or its affiliates be liable for
+                    any indirect, incidental, special, or consequential damages arising out of or related to
+                    your booking or use of our services. This limitation applies whether the alleged
+                    liability is based on contract, tort, negligence, strict liability, or any other legal theory.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">9.2 Disclaimer of Warranties</h3>
+                    <p>All services provided by Kenya on a Budget Safaris are offered "as is" without any
+                    warranties, express or implied. We make no guarantee that the services will meet your
+                    expectations or that they will be uninterrupted or error-free. Your use of our services
+                    is at your own risk, and we expressly disclaim any warranty of merchantability or
+                    fitness for a particular purpose.</p>
+                </div>
+            </section>
+            
+            <section id="dispute" class="terms-section">
+                <h2 class="section-title">10. DISPUTE RESOLUTION</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">10.1 Informal Negotiations</h3>
+                    <p>In the event of any dispute or claim arising out of these Terms, you agree to first
+                    contact us and attempt to resolve the matter through informal negotiations. We value
+                    our customers and are committed to addressing your concerns promptly and fairly.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">10.2 Mediation and Arbitration Process</h3>
+                    <p>If informal resolution is unsuccessful, both parties agree to submit the dispute to
+                    mediation or, if necessary, binding arbitration under procedures that are
+                    straightforward and accessible. Details regarding the mediation or arbitration process
+                    will be communicated once a dispute is formally initiated. This dispute resolution
+                    mechanism is intended to be efficient and cost-effective.</p>
+                </div>
+            </section>
+            
+            <section id="governing-law" class="terms-section">
+                <h2 class="section-title">11. GOVERNING LAW AND JURISDICTION</h2>
+                <div class="subsection">
+                    <h3 class="subsection-title">11.1 UK Law and International Standards</h3>
+                    <p>These Terms shall be governed by and construed in accordance with the laws of the
+                    United Kingdom. In addition, we incorporate relevant internationally recognized legal
+                    principles to ensure that our practices meet global standards of fairness and
+                    transparency.</p>
+                </div>
+                <div class="subsection">
+                    <h3 class="subsection-title">11.2 Applicable Jurisdiction</h3>
+                    <p>Any legal action or proceeding arising out of or relating to these Terms or the use of
+                    our services shall be brought exclusively in the courts of the United Kingdom, unless
+                    otherwise agreed in writing. By accepting these Terms, you consent to the jurisdiction
+                    and venue of such courts.</p>
+                </div>
+            </section>
+            
+            <section id="modifications" class="terms-section">
+                <h2 class="section-title">12. MODIFICATIONS TO THE TERMS AND CONDITIONS</h2>
+                <p>We reserve the right to modify these Terms at any time in our sole discretion. Any
+                modifications will be posted on the Website with an updated effective date. Continued
+                use of our booking services following any modifications constitutes your acceptance
+                of the updated Terms. It is your responsibility to review these Terms periodically to
+                stay informed of any changes.</p>
+            </section>
+            
+            <section id="termination" class="terms-section">
+                <h2 class="section-title">13. TERMINATION OF SERVICES</h2>
+                <p>We may, at our sole discretion, terminate or suspend your access to our services if
+                you violate any part of these Terms or engage in any behavior that, in our judgment, is
+                detrimental to the operation of the Website or the experience of other customers.
+                Upon termination, all rights and obligations under these Terms shall immediately
+                cease, except for those provisions that by their nature are intended to survive
+                termination.</p>
+            </section>
+            
+            <section id="force-majeure" class="terms-section">
+                <h2 class="section-title">14. FORCE MAJEURE</h2>
+                <p>Neither party shall be liable for any delay or failure to perform its obligations under
+                these Terms if such delay or failure is caused by events beyond its reasonable control,
+                including but not limited to natural disasters, acts of government, war, terrorism,
+                strikes, or other labor disputes. In such cases, the affected party shall notify the other
+                party as soon as reasonably practicable, and the time for performance shall be
+                extended for a period equal to the duration of the force majeure event.</p>
+            </section>
+            
+            <section id="notices" class="terms-section">
+                <h2 class="section-title">15. NOTICES AND COMMUNICATION</h2>
+                <p>Any notices, communications, or other information provided by us to you shall be in
+                writing and may be delivered via email, postal mail, or through postings on the
+                Website. It is your responsibility to ensure that your contact information is up to date
+                and accurate to receive all communications related to your booking.</p>
+            </section>
+            
+            <section id="entire-agreement" class="terms-section">
+                <h2 class="section-title">16. ENTIRE AGREEMENT</h2>
+                <p>These Terms, together with any additional agreements referenced herein, constitute
+                the entire agreement between you and Kenya on a Budget Safaris with respect to the
+                booking services provided through our Website. No other agreements, promises, or
+                representations, whether written or oral, shall be considered part of this agreement
+                unless expressly incorporated herein.</p>
+            </section>
+            
+            <section id="contact" class="terms-section">
+                <h2 class="section-title">17. CONTACT INFORMATION</h2>
+                <p>For any questions, disputes, or concerns regarding these Terms and Conditions or
+                your bookings, please contact us at:</p>
+                
+                <div class="contact-section">
+                    <h3 class="contact-title">KenyaOnABudget Safaris</h3>
+                    <div class="contact-info">
+                        <strong>Email:</strong> <a href="mailto:Contact@kenyaonabudgetsafaris.co.uk">Contact@kenyaonabudgetsafaris.co.uk</a>
+                    </div>
+                    <div class="contact-info">
+                        <strong>Phone:</strong> <a href="tel:+447376642148">+447376642148</a>
+                    </div>
+                </div>
+                
+                <p>This Terms and Conditions document is intended to provide detailed guidance on the
+                booking, payment, cancellation, and refund procedures for Kenya on a Budget Safaris.
+                It is structured to offer clarity and transparency in all transactions, ensuring that
+                your rights and obligations are clearly understood. By making a booking, you
+                acknowledge that you have read, understood, and agreed to be bound by these Terms.</p>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Your footer would go here -->
+    
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+    
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

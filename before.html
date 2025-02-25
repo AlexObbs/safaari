@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="shortcut icon" href="logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="before.css">
+    <style>
+        .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    animation: scaleIn 0.3s ease-out forwards;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+    color: #e67e22;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #e67e22;
+}
+
+.date-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #e67e22;
+    box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+    outline: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.submit-btn {
+    background: #e67e22;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover {
+    background: #d35400;
+    transform: translateY(-1px);
+}
+
+.submit-btn:active {
+    transform: translateY(1px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar remains the same as previous -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="logo1.png" alt="" style="width: 50px;">
+                    <span class="link-text" style="font-size: 15px;">KenyaOnABudget Safaris</span>
+                </div>
+                <div class="toggle-btn">
+                    <i class="fas fa-bars" style="color: #e67e22;"></i>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li class="active">
+                    <a href="#overview">
+                        <i class="fas fa-home icon"></i>
+                        <span class="link-text">Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#itinerary">
+                        <i class="fas fa-map icon"></i>
+                        <span class="link-text">Itinerary</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#payments">
+                        <i class="fas fa-credit-card icon"></i>
+                        <span class="link-text">Payments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#support">
+                        <i class="fas fa-headset icon"></i>
+                        <span class="link-text">Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#pickup">
+                        <i class="fas fa-car icon"></i>
+                        <span class="link-text">Pick Up</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#accommodation">
+                        <i class="fas fa-hotel icon"></i>
+                        <span class="link-text">Accommodation</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#inbox" class="nav-item-wrapper">
+                        <i class="fas fa-envelope icon"></i>
+                        <span class="link-text">Inbox</span>
+                        <span class="badge messages-badge">3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#notifications" class="nav-item-wrapper">
+                        <i class="fas fa-bell icon"></i>
+                        <span class="link-text">Notifications</span>
+                        <span class="badge notifications-badge">5</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings">
+                        <i class="fas fa-cog icon"></i>
+                        <span class="link-text">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#upgrades">
+                        <i class="fas fa-star icon"></i>
+                        <span class="link-text">Upgrades</span>
+                    </a>
+                </li>
+               
+                
+                <li>
+                    <a href="#logout" class="btn logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt icon"></i>
+                        <span class="link-text">Logout</span>
+                        <div class="spinner" id="logoutSpinner"></div>
+                    </a>
+                </li>
+                <!-- Rest of nav items remain the same -->
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            
+        <div class="overview-grid" id="overview" style="display: block;">
+            <div class="containerr" style="display: block;">
+                <!-- Welcome Section with Firebase Integration -->
+                <div class="welcome-section">
+                    <h1>Hi, <span id="userName" style="color: #e67e22;">...</span></h1>
+                </div>
+        
+                <!-- Loading Spinner (Initially Visible) -->
+                <div id="loader" class="loader">
+                    <div class="spinner"></div>
+                </div>
+        
+                <!-- New User View (Initially Hidden) -->
+                <div id="newUserView" style="display: none;">
+                    <div class="welcome-message">
+                        <h2>Welcome to Your Travel Dashboard!</h2>
+                        <p>You haven't booked any packages yet. Explore our amazing offerings below and start your journey!</p>
+                        <a href="pricing.html">View Detailed Packages Info</a>
+                    </div>
+                    
+                  
+                        <!-- Safari Package -->
+                        <!-- Replace the existing package card buttons with these -->
+<div class="card package-card">
+    <h3>Saver Package</h3>
+    <p>7 Days / 6 Nights</p>
+    <div class="package-price">£850</div>
+    <p>Explore Kenya like a local</p>
+    <button class="book-btn" onclick="bookPackage('saver', 850, 'Saver Package')">
+        <i class="fas fa-bookmark"></i> Book Now
+    </button>
+</div>
+
+<!-- Do the same for all package cards, updating the parameters accordingly -->
+        
+                        <!-- Beach Package -->
+                       <!-- Replace the existing package card buttons with these -->
+<div class="card package-card">
+    <h3>Standard Package</h3>
+    <p>7 Days / 6 Nights</p>
+    <div class="package-price">£1,000</div>
+    <p>Explore Kenya like a local</p>
+    <button class="book-btn" onclick="bookPackage('standard', 1000, 'Standard Package')">
+        <i class="fas fa-bookmark"></i> Book Now
+    </button>
+</div>
+
+<!-- Do the same for all package cards, updating the parameters accordingly -->
+                        <!-- Mountain Package -->
+                        <!-- Replace the existing package card buttons with these -->
+<div class="card package-card">
+    <h3>Premium Package</h3>
+    <p>7 Days / 6 Nights</p>
+    <div class="package-price">£1,800</div>
+    <p>Explore Kenya like a local</p>
+    <button class="book-btn" onclick="bookPackage('premium', 1800, 'Premium Package')">
+        <i class="fas fa-bookmark"></i> Book Now
+    </button>
+</div>
+
+<!-- Do the same for all package cards, updating the parameters accordingly -->
+        
+                        <!-- Cultural Package -->
+                        <!-- Replace the existing package card buttons with these -->
+<div class="card package-card">
+    <h3>Luxury Package</h3>
+    <p>7 Days / 6 Nights</p>
+    <div class="package-price">£2,500</div>
+    <p>Explore Kenya like a local</p>
+    <button class="book-btn" onclick="bookPackage('luxury', 2500, 'Luxury Package')">
+        <i class="fas fa-bookmark"></i> Book Now
+    </button>
+</div>
+
+<!-- Do the same for all package cards, updating the parameters accordingly -->
+        
+                        <!-- Adventure Package -->
+                        <!-- Replace the existing package card buttons with these -->
+<div class="card package-card">
+    <h3>Family of (4) Package</h3>
+    <p>9 Days / 8 Nights</p>
+    <div class="package-price">£3,300</div>
+    <p>Explore Kenya like a local</p>
+    <button class="book-btn" onclick="bookPackage('family', 3300, 'Family Package')">
+        <i class="fas fa-bookmark"></i> Book Now
+    </button>
+</div>
+
+<!-- Do the same for all package cards, updating the parameters accordingly -->
+                    </div>
+                </div>
+                
+        
+                <!-- Existing Booking View (Initially Hidden) -->
+                <div id="existingBookingView" style="display: none;">
+                    <div id="existingBookingView">
+                        <!-- Success Banner -->
+                        <div class="success-banner">
+                            <h1>
+                                <i class="fas fa-check-circle"></i>
+                                Payment Successful!
+                            </h1>
+                            <p>Thank you for booking with us. Your adventure awaits!</p>
+                        </div>
+                    <div class="overview-grid">
+                        
+                        <!-- Package Information -->
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-suitcase"></i>
+                                <h2 class="card-title">Package Details</h2>
+                            </div>
+                            
+                            <div class="package-info">
+                                <h3>Package Booked: <span id="packageName" style="color: #e67e22;">Loading...</span></h3>
+                                <h3>Package Duration: <span id="packageDuration" style="color: #e67e22;">Loading...</span></h3>
+                                <h3>Package Cost: <span id="packageCost" style="color: #e67e22;">Loading...</span></h3>
+                                                            </div>
+                                                            <div class="countdown-container">
+                                                                <h3>Time Until Your Adventure</h3>
+                                                                <div class="countdown-grid">
+                                                                    <div class="countdown-box">
+                                                                        <div class="countdown-value" id="days">00</div>
+                                                                        <div class="countdown-label">Days</div>
+                                                                    </div>
+                                                                    <div class="countdown-box">
+                                                                        <div class="countdown-value" id="hours">00</div>
+                                                                        <div class="countdown-label">HRS</div>
+                                                                    </div>
+                                                                    <div class="countdown-box">
+                                                                        <div class="countdown-value" id="minutes">00</div>
+                                                                        <div class="countdown-label">MINS</div>
+                                                                    </div>
+                                                                    <div class="countdown-box">
+                                                                        <div class="countdown-value" id="seconds">00</div>
+                                                                        <div class="countdown-label">SECS</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            
+                        </div>
+        
+                        <!-- Guide Information -->
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-user-tie"></i>
+                                <h2 class="card-title" style="text-align: center;">Your Guide</h2>
+                            </div>
+                            <div class="guide-profile">
+                                <div class="guide-avatar">
+                                    <img id="guideImage" src="profile.png" alt="Guide">
+                                </div>
+                                <div class="guide-info">
+                                    <h3 id="guideName">Loading...</h3>
+                                    <p id="guideExperience">Loading...</p>
+                                    <p id="guideLanguages">Loading...</p>
+                                    <button class="book-btn">
+                                        <i class="fas fa-comment"></i> Chat with Guide
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <!-- Travel Dates -->
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-calendar-alt"></i>
+                                <h2 class="card-title">Travel Dates</h2>
+                            </div>
+                            <div class="dates-grid">
+                                <div class="date-box">
+                                    <h3>Arrival</h3>
+                                    <p id="arrivalDate">Loading...</p>
+                                    <p id="arrivalTime">Loading...</p>
+                                </div>
+                                <div class="date-box">
+                                    <h3>Departure</h3>
+                                    <p id="departureDate">Loading...</p>
+                                    <p id="departureTime">Loading...</p>
+                                </div>
+                                
+                            </div>
+                            <p style="margin-top: 30px;">To Request Change in Dates, Please Contact Us</p>
+                        </div>
+        
+                        <!-- Payment Information -->
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-credit-card"></i>
+                                <h2 class="card-title">Payment Information</h2>
+                            </div>
+                            <div>
+                                <p><strong>Total Package Cost:</strong> <span id="totalCost">Loading...</span></p>
+                                <p><strong>Paid Amount:</strong> <span id="paidAmount">Loading...</span></p>
+                                <p><strong>Remaining Balance:</strong> <span id="remainingBalance">Loading...</span></p>
+                                <div class="payment-status">
+                                    <i class="fas fa-check-circle" style="color: #4caf50;"></i>
+                                    <span style="text-align: center; font-weight: bold;">PAID</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+            <div class="itinerary-section" id="itinerary" style="display: none;">
+                <h1 class="section-title">Your Safari Itinerary</h1>
+                <div class="itinerary-grid">
+                    <!-- Day 1 -->
+                    <div class="itinerary-card">
+                        <div class="day-header">
+                            <span class="day-number">...</span>
+                            <span class="day-date">...</span>
+                        </div>
+                        <div class="itinerary-content">
+                            <h3>...</h3>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <span class="time">10:00 AM</span>
+                                    <p>...</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="time">12:00 PM</span>
+                                    <p>...</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="time">2:00 PM</span>
+                                    <p>...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accommodation-section" id="accommodation" style="display: none;">
+                <h1 class="section-title" style="font-size: 21px;">Your Accommodations</h1>
+                
+                <!-- Accommodation Grid -->
+                <div class="accommodation-grid">
+                    <!-- Lodge 1 -->
+                    <div class="accommodation-card">
+                        <div class="accommodation-image">
+                            <img src="accomodation18.jpg" alt="Lodge Image">
+                            <span class="stay-duration">...</span>
+                        </div>
+                        <div class="accommodation-details">
+                            <h3>Serena Mountain Lodge</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> ...</p>
+                            <div class="amenities">
+                                <span><i class="fas fa-wifi"></i> ...</span>
+                                <span><i class="fas fa-swimming-pool"></i> ...</span>
+                                <span><i class="fas fa-utensils"></i> ...</span>
+                            </div>
+                            <div class="stay-info">
+                                <div class="check-times">
+                                    <div class="check-in">
+                                        <small>Check-in</small>
+                                        <p>...</p>
+                                    </div>
+                                    <div class="check-out">
+                                        <small>Check-out</small>
+                                        <p>...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="room-details">
+                                <h4>Room Type</h4>
+                                <p>...</p>
+                                <button class="details-btn">
+                                    <i class="fas fa-info-circle"></i> View Room Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Lodge 2 -->
+                    
+                </div>
+            </div>
+            <div class="payments-section" id="payments" style="display: none;">
+                <div class="section-header">
+                    <h1>Payment Details</h1>
+                </div>
+            
+                <div class="payment-overview">
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <i class="fas fa-credit-card"></i>
+                            <h3 class="card-title">Package Payment</h3>
+                        </div>
+                        <div class="card-value" id="packageAmount">£0.00</div>
+                        <span class="card-status status-paid" id="paymentStatus">
+                            <i class="fas fa-check-circle"></i> No payment status
+                        </span>
+                    </div>
+            
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <i class="fas fa-calendar-check"></i>
+                            <h3 class="card-title">Payment Date</h3>
+                        </div>
+                        <div class="card-value" style="font-size: 1.5rem;" id="paymentDate">No payment date</div>
+                        <p id="paymentTime">No payment time</p>
+                    </div>
+            
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <i class="fas fa-receipt"></i>
+                            <h3 class="card-title">Transaction Details</h3>
+                        </div>
+                        <p><strong>Transaction ID:</strong> <span class="transaction-id" id="transactionId">No transaction ID</span></p>
+                        <p><strong>Status:</strong> <span id="transactionStatus">No status</span></p>
+                        <p><strong>Package Name:</strong> <span id="packageName">No package selected</span></p>
+                    </div>
+                </div>
+            
+                <div class="payment-history">
+                    <div class="history-header">
+                        <h2 class="history-title">Payment History</h2>
+                        <div class="filter-group">
+                            <select class="filter-select" id="yearFilter">
+                                <option value="all">All Years</option>
+                                <option value="2025">2025</option>
+                                <option value="2024">2024</option>
+                            </select>
+                            <select class="filter-select" id="packageFilter">
+                                <option value="all">All Packages</option>
+                                <option value="saver">Saver Package</option>
+                                <option value="standard">Standard Package</option>
+                                <option value="premium">Premium Package</option>
+                                <option value="luxury">Luxury Package</option>
+                                <option value="family">Family Package</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <table class="payment-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Transaction ID</th>
+                                <th>Package</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentHistoryBody">
+                            <!-- This will be populated from the database -->
+                            <tr>
+                                <td colspan="6" class="empty-state">
+                                    <i class="fas fa-receipt"></i>
+                                    <p>No payment history available</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="settings-section" id="settings">
+                <h1 class="section-title">Account Settings</h1>
+                <div class="settings-grid">
+                    <!-- Profile Settings Card -->
+                    <div class="settings-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <img src="" alt="Profile Picture">
+                            </div>
+                            <div class="profile-info">
+                                <h2 id="userNamee">John Doe</h2>
+                                <p>Member since 2025</p>
+                                <!-- <button class="save-btn">Change Profile Picture</button> -->
+                            </div>
+                        </div>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <label for="fullName">Full Name</label>
+                                <input type="text" id="fullName" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" value="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" value="+44 123 456 7890">
+                            </div>
+                            <div class="form-group">
+                                <label for="language">Preferred Language</label>
+                                <select id="language">
+                                    <option value="en">English</option>
+                                    <option value="sw">Swahili</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </form>
+                    </div>
+            
+                    <!-- Preferences Card -->
+                    <div class="settings-card">
+                        <h3>Notifications & Preferences</h3>
+                        <div class="preference-toggle">
+                            <span>Email Notifications</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="preference-toggle">
+                            <span>SMS Notifications</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="preference-toggle">
+                            <span>Trip Updates</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="preference-toggle">
+                            <span>Newsletter</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="preference-toggle">
+                            <span>Marketing Communications</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="support-section" id="support" style="display: none;">
+                <h1 class="section-title">24/7 Support</h1>
+                <div class="support-grid">
+                    <!-- Emergency Contact Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-phone-alt"></i>
+                            <h2 class="card-title">Emergency Contacts</h2>
+                        </div>
+                        <div class="emergency-contacts">
+                            <div class="contact-item">
+                                <h3>Tour Guide - Caroline</h3>
+                                <p><i class="fas fa-phone"></i> +44 7376 642148</p>
+                                <p><i class="fas fa-envelope"></i> carol@kenyaonabudgetsafaris.co.uk</p>
+                            </div>
+                            <div class="contact-item">
+                                <h3>Local Emergency Services</h3>
+                                <p><i class="fas fa-ambulance"></i> Emergency: 999</p>
+                                <p><i class="fas fa-hospital"></i> Hospital: +254 720 123 456</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Live Chat Support -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-comments"></i>
+                            <h2 class="card-title">Live Chat Support</h2>
+                        </div>
+                        <div class="chat-support">
+                            <div class="support-status online">
+                                <span class="status-dot"></span>
+                                <span>Support Online</span>
+                            </div>
+                            <div class="chat-box">
+                                <div class="chat-messages" id="chatMessages">
+                                    <!-- Messages will be populated here -->
+                                </div>
+                                <div class="chat-input">
+                                    <form action="">
+                                    <input type="text" placeholder="Type your message..." id="messageInput" required>
+                                    <button class="send-btn">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- FAQ Section -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-question-circle"></i>
+                            <h2 class="card-title">Frequently Asked Questions</h2>
+                        </div>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <span>What items should I pack?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    Light, comfortable clothing, sun protection, insect repellent, and a camera are essential. A detailed packing list will be provided in your welcome package.
+                                </div>
+                            </div>
+                            <!-- Add more FAQ items as needed -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pickup-section" id="pickup">
+                <h1 class="section-title">Airport Pickup Details</h1>
+                
+                <div class="pickup-card">
+                    <div class="pickup-details">
+                        <div class="detail-item">
+                            <i class="fas fa-plane-arrival"></i>
+                            <div>
+                                <h3>Arrival Details</h3>
+                                <p>...</p>
+                                <p>...</p>
+                                <p>...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Pickup Location</h3>
+                                <p>...</p>
+                                <p>...</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="map-container">
+                        <p><i class="fas fa-map"></i> Map will be available 24 hours before pickup</p>
+                    </div>
+            
+                    <div class="driver-info">
+                        <div class="driver-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="driver-details">
+                            <h3>Your Driver</h3>
+                            <p>...</p>
+                            <p>...</p>
+                            <p>...</p>
+                        </div>
+                    </div>
+            
+                    <div class="vehicle-info">
+                        <h3>Vehicle Details</h3>
+                        <p>...</p>
+                        <p>...</p>
+                        <p>...</p>
+                        <p>...</p>
+                    </div>
+            
+                    <div class="action-buttons">
+                        <button class="action-btn">
+                            <i class="fas fa-phone"></i> Contact Driver
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-message"></i> Send Message
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-clock"></i> Update Pickup Time
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="upgrades-section" id="upgrades" style="display: none;">
+                <h1 class="section-title">Optional Upgrades & Activities</h1>
+                
+                <div class="filters">
+                    <select class="filter-select" id="price-filter">
+                        <option value="all">All Prices</option>
+                        <option value="budget">Budget (Under $50)</option>
+                        <option value="medium">Medium ($50-$100)</option>
+                        <option value="premium">Premium ($100+)</option>
+                    </select>
+                    
+                    <select class="filter-select" id="activity-type">
+                        <option value="all">All Activities</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="cultural">Cultural</option>
+                        <option value="wildlife">Wildlife</option>
+                        <option value="scenic">Scenic</option>
+                    </select>
+                </div>
+            
+                
+            
+                    <!-- Add more upgrade cards as needed -->
+                </div>
+            </div>
+            
+                <div class="panel notifications-panel">
+                    <div class="panel-header">
+                        <h3>Notifications</h3>
+                        <button class="clear-all">Mark all as Read</button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="notification-item unread">
+                            <div class="notification-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="notification-content">
+                                <p>Your safari trip starts in 10 days! Complete your payment to confirm.</p>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="notification-content">
+                                <p>Your airport pickup has been scheduled for March 1, 2025, 10:00 AM</p>
+                                <div class="notification-time">5 hours ago</div>
+                            </div>
+                        </div>
+                        <!-- Add more notification items as needed -->
+                    </div>
+                </div>
+            
+                <!-- Messages Panel Structure -->
+
+    
+   
+</div>
+
+<!-- New Message Modal -->
+<div class="new-message-modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>New Message</h3>
+            <button class="close-modal">×</button>
+        </div>
+        <div class="modal-body">
+            <select id="messageRecipient" required>
+                <option value="">Select Recipient</option>
+                <option value="guide">My Guide</option>
+                <option value="support">Support Team</option>
+            </select>
+            <textarea id="messageContent" placeholder="Type your message..." required></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="button" class="send-btn">Send Message</button>
+        </div>
+    </div>
+</div>
+            
+            
+        </main>
+    </div>
+    <div id="dateModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Select Your Travel Date</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="travelDateForm" class="date-form">
+                <div class="form-group">
+                    <label for="arrivalDate">Arrival Date</label>
+                    <input 
+                        type="date" 
+                        id="arrivalDate" 
+                        name="arrivalDate"
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="arrivalTime">Arrival Time</label>
+                    <input 
+                        type="time" 
+                        id="arrivalTime" 
+                        name="arrivalTime"
+                        required
+                        value="10:00"
+                    >
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check"></i>
+                        Confirm Dates
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="dateModal" class="modal-overlay">
+        <div class="modal-content" style="display: none;">
+            <div class="modal-header">
+                <h2>Select Your Travel Date</h2>
+                <button class="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="travelDateForm" class="date-form">
+                <div class="form-group">
+                    <label for="arrivalDate">Arrival Date</label>
+                    <input 
+                        type="date" 
+                        id="arrivalDate" 
+                        name="arrivalDate"
+                        required
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="arrivalTime">Arrival Time</label>
+                    <input 
+                        type="time" 
+                        id="arrivalTime" 
+                        name="arrivalTime"
+                        required
+                        value="10:00"
+                    >
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check"></i>
+                        Confirm Dates
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Loading Animation Overlay -->
+    <div class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-icon">
+                <div class="safari-icon">
+                    <i class="fas fa-globe-africa"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+            <div class="loading-messages">
+                <h2>Preparing Your Safari Adventure</h2>
+                <div class="message-carousel">
+                    <div class="message active">Securing your preferred dates...</div>
+                    <div class="message">Preparing secure payment gateway...</div>
+                    <div class="message">You'll be redirected to Stripe for safe payment...</div>
+                    <div class="message">Almost ready for your Kenyan adventure!</div>
+                </div>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cookie-consent-container"></div>
+<script>
+    // Load the cookie consent HTML
+    fetch('cookie-consent.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('cookie-consent-container').innerHTML = html;
+            // Load the cookie consent JavaScript after HTML is loaded
+            const script = document.createElement('script');
+            script.src = 'cookie-consent.js';
+            document.body.appendChild(script);
+        });
+</script>
+   <script type="module" src="main.js"></script>
+</body>
+</html>

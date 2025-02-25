@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-image: url('vacation3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #e67e22;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d3436;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #dfe6e9;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e67e22;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 31%;
+            padding: 0.6rem;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .google-btn {
+            background: #DB4437;
+        }
+
+        .facebook-btn {
+            background: #4267B2;
+        }
+
+        .apple-btn {
+            background: #000000;
+        }
+
+        .social-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .social-btn i {
+            margin-right: 5px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dfe6e9;
+        }
+
+        .divider span {
+            padding: 0 10px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .password-strength {
+    height: 5px;
+    margin-top: 5px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    background: #dfe6e9;
+}
+
+.password-strength-text {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+}
+
+.strength-weak {
+    width: 33%;
+    background: #e74c3c;
+}
+
+.strength-medium {
+    width: 66%;
+    background: #f1c40f;
+}
+
+.strength-strong {
+    width: 100%;
+    background: #2ecc71;
+}
+
+        .error-message {
+            color: #e74c3c;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .links {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .links a {
+            color: #e67e22;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .links a:hover {
+            color: #d35400;
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 0.5rem;
+        }
+
+        #logoutBtn {
+            display: none;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #e67e22;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .form-group input {
+                padding: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h2>Welcome Back</h2>
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email">
+                <div class="error-message" id="loginEmailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+                <i class="fas fa-eye password-toggle" id="loginPasswordToggle"></i>
+                <div class="error-message" id="loginPasswordError"></div>
+            </div>
+            <button class="btn" onclick="login()">
+                <span>Login</span>
+                <div class="spinner" id="loginSpinner"></div>
+            </button>
+            
+            <div class="divider"><span>OR</span></div>
+            
+            <div class="social-login">
+                <div class="social-btn google-btn" onclick="signInWithGoogle()">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="social-btn facebook-btn" onclick="signInWithFacebook()">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-btn apple-btn" onclick="signInWithApple()">
+                    <i class="fab fa-apple"></i>
+                </div>
+            </div>
+            
+            <div class="links">
+                <a href="#" onclick="showResetPassword()">Forgot Password?</a>
+                <a href="#" onclick="toggleForms()">Create Account</a>
+            </div>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signupForm" style="display: none;">
+            <h2>Create Account</h2>
+            <div class="form-group">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" placeholder="This will appear on all transactions.">
+                <div class="error-message" id="signupNameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" id="signupEmail" placeholder="Enter your email">
+                <div class="error-message" id="signupEmailError"></div>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                
+                <input type="password" id="signupPassword" placeholder="Create a password">
+                <div class="password-strength"></div>
+                <div class="password-strength-text"></div>
+                <i class="fas fa-eye password-toggle" id="signupPasswordToggle"></i>
+                <div class="password-requirements">
+                    Password must be at least 8 characters long with letters, numbers, and symbols
+                </div>
+                <div class="error-message" id="signupPasswordError"></div>
+            </div>
+            
+            <div id="recaptcha-container" class="form-group"></div>
+            
+            <button class="btn" onclick="signup()">
+                <span>Sign Up</span>
+                <div class="spinner" id="signupSpinner"></div>
+            </button>
+            
+            <div class="divider"><span>OR</span></div>
+            
+            <div class="social-login">
+                <div class="social-btn google-btn" onclick="signInWithGoogle()">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="social-btn facebook-btn" onclick="signInWithFacebook()">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-btn apple-btn" onclick="signInWithApple()">
+                    <i class="fab fa-apple"></i>
+                </div>
+            </div>
+            
+            <div class="links">
+                <a href="#" onclick="toggleForms()">Already have an account? Login</a>
+            </div>
+        </div>
+
+        <!-- Reset Password Form -->
+        <div id="resetForm" style="display: none;">
+            <h2>Reset Password</h2>
+            <div class="form-group">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" placeholder="Enter your full name">
+                <div class="error-message" id="signupNameError"></div>
+            </div>
+            <div class="form-group">
+                <label for="resetEmail">Email</label>
+                <input type="email" id="resetEmail" placeholder="Enter your email">
+                <div class="error-message" id="resetEmailError"></div>
+            </div>
+            <button class="btn" onclick="resetPassword()">
+                <span>Send Reset Link</span>
+                <div class="spinner" id="resetSpinner"></div>
+            </button>
+            <div class="links">
+                <a href="#" onclick="showLoginForm()">Back to Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // Your Firebase config
+        const firebaseConfig = {
+  apiKey: "AIzaSyAkT263nxI1qdMvgcZqS2M37-C4OwYL2I0",
+  authDomain: "kenya-on-a-budget-safaris.firebaseapp.com",
+  projectId: "kenya-on-a-budget-safaris",
+  storageBucket: "kenya-on-a-budget-safaris.firebasestorage.app",
+  messagingSenderId: "857055399633",
+  appId: "1:857055399633:web:8531f564a3ffc3d0f1bff0"
+};
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize reCAPTCHA verifier
+        window.onload = function() {
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                'size': 'normal',
+                'callback': function(response) {
+                    // reCAPTCHA solved, enable sign up button
+                    document.querySelector('#signupForm .btn').disabled = false;
+                },
+                'expired-callback': function() {
+                    // Response expired. Ask user to solve reCAPTCHA again
+                    document.querySelector('#signupForm .btn').disabled = true;
+                }
+            });
+            
+            recaptchaVerifier.render();
+            
+            // Setup password toggle buttons
+            document.getElementById('loginPasswordToggle').addEventListener('click', function() {
+                togglePasswordVisibility('loginPassword', this);
+            });
+            
+            document.getElementById('signupPasswordToggle').addEventListener('click', function() {
+                togglePasswordVisibility('signupPassword', this);
+            });
+        };
+        
+        // Toggle password visibility
+        function togglePasswordVisibility(inputId, iconElement) {
+            const passwordInput = document.getElementById(inputId);
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                iconElement.classList.remove('fa-eye');
+                iconElement.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                iconElement.classList.remove('fa-eye-slash');
+                iconElement.classList.add('fa-eye');
+            }
+        }
+
+        // Password validation
+        function checkPasswordStrength(password) {
+    let strength = 0;
+    const minLength = 8;
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    
+    if (password.length >= minLength) strength++;
+    if (hasLetter) strength++;
+    if (hasNumber) strength++;
+    if (hasSymbol) strength++;
+    if (hasUppercase && hasLowercase) strength++;
+    
+    const strengthBar = document.querySelector('.password-strength');
+    const strengthText = document.querySelector('.password-strength-text');
+    
+    strengthBar.className = 'password-strength';
+    
+    if (password.length === 0) {
+        strengthBar.style.width = '0%';
+        strengthText.textContent = '';
+    } else if (strength < 4) {
+        strengthBar.classList.add('strength-weak');
+        strengthText.textContent = 'Weak password';
+        strengthText.style.color = '#e74c3c';
+    } else if (strength < 5) {
+        strengthBar.classList.add('strength-medium');
+        strengthText.textContent = 'Medium password';
+        strengthText.style.color = '#f1c40f';
+    } else {
+        strengthBar.classList.add('strength-strong');
+        strengthText.textContent = 'Strong password';
+        strengthText.style.color = '#2ecc71';
+    }
+    
+    return strength >= 3;
+}
+
+        // Show/hide error message
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function hideError(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        // Toggle spinner
+        function toggleSpinner(spinnerId, show) {
+            document.getElementById(spinnerId).style.display = show ? 'block' : 'none';
+        }
+
+        // Login function
+        async function login() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    hideError('loginEmailError');
+    hideError('loginPasswordError');
+
+    // Check reCAPTCHA
+    
+
+    toggleSpinner('loginSpinner', true);
+
+    try {
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+        
+        if (!userCredential.user.emailVerified) {
+            toggleSpinner('loginSpinner', false);
+            showError('loginEmailError', 'Please verify your email before logging in. Check your inbox for the verification link.');
+            return;
+        }
+
+        // Redirect to your specified page
+        window.location.href = 'before.html';
+    } catch (error) {
+        toggleSpinner('loginSpinner', false);
+        
+        switch(error.code) {
+            case 'auth/user-not-found':
+                showError('loginEmailError', 'No account found with this email');
+                break;
+            case 'auth/wrong-password':
+                showError('loginPasswordError', 'Incorrect password');
+                break;
+            case 'auth/invalid-email':
+                showError('loginEmailError', 'Please enter a valid email address');
+                break;
+            default:
+                showError('loginEmailError', 'Something went wrong. Please try again.');
+        }
+    }
+}
+
+        // Social login functions
+        async function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            try {
+                await firebase.auth().signInWithPopup(provider);
+                window.location.href = 'wel.html';
+            } catch (error) {
+                alert('Google sign-in failed. Please try again.');
+                console.error(error);
+            }
+        }
+
+        async function signInWithFacebook() {
+            const provider = new firebase.auth.FacebookAuthProvider();
+            try {
+                await firebase.auth().signInWithPopup(provider);
+                window.location.href = 'before.html';
+            } catch (error) {
+                alert('Facebook sign-in failed. Please try again.');
+                console.error(error);
+            }
+        }
+
+        async function signInWithApple() {
+            const provider = new firebase.auth.OAuthProvider('apple.com');
+            try {
+                await firebase.auth().signInWithPopup(provider);
+                window.location.href = 'before.html';
+            } catch (error) {
+                alert('Apple sign-in failed. Please try again.');
+                console.error(error);
+            }
+        }
+
+        // Sign up function
+        async function signup() {
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+
+    hideError('signupNameError');
+    hideError('signupEmailError');
+    hideError('signupPasswordError');
+
+    // Validate inputs
+    if (!name.trim()) {
+        showError('signupNameError', 'Please enter your name');
+        return;
+    }
+
+    if (!checkPasswordStrength(password)) {
+        showError('signupPasswordError', 'Please choose a stronger password');
+        return;
+    }
+
+    // Check reCAPTCHA
+    const recaptchaResponse = grecaptcha.getResponse();
+    if (!recaptchaResponse) {
+        showError('signupEmailError', 'Please complete the reCAPTCHA challenge');
+        return;
+    }
+
+    toggleSpinner('signupSpinner', true);
+
+    try {
+        // Create user
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        
+        // Update profile with name
+        await userCredential.user.updateProfile({
+            displayName: name
+        });
+
+        // Send email verification
+        await userCredential.user.sendEmailVerification();
+
+        // Show success message
+        //alert('Account created! Please check your email to verify your account.');
+        
+        // Redirect to verification pending page or login
+        window.location.href = 'verification-pending.html'; // Create this page to show verification status
+    } catch (error) {
+        toggleSpinner('signupSpinner', false);
+        
+        switch(error.code) {
+            case 'auth/email-already-in-use':
+                showError('signupEmailError', 'An account already exists with this email');
+                break;
+            case 'auth/invalid-email':
+                showError('signupEmailError', 'Please enter a valid email address');
+                break;
+            default:
+                showError('signupEmailError', 'Something went wrong. Please try again.');
+        }
+    }
+}
+        // Reset password function
+        async function resetPassword() {
+            const email = document.getElementById('resetEmail').value;
+            
+            hideError('resetEmailError');
+            toggleSpinner('resetSpinner', true);
+
+            try {
+                await firebase.auth().sendPasswordResetEmail(email);
+                alert('Password reset link sent! Check your email.');
+                showLoginForm();
+            } catch (error) {
+                toggleSpinner('resetSpinner', false);
+                
+                switch(error.code) {
+                    case 'auth/user-not-found':
+                        showError('resetEmailError', 'No account found with this email');
+                        break;
+                    case 'auth/invalid-email':
+                        showError('resetEmailError', 'Please enter a valid email address');
+                        break;
+                    default:
+                        showError('resetEmailError', 'Something went wrong. Please try again.');
+                }
+            }
+        }
+
+        // Form toggle functions
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            }
+        }
+
+        function showResetPassword() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('resetForm').style.display = 'block';
+        }
+
+        function showLoginForm() {
+            document.getElementById('resetForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+        document.getElementById('signupPassword').addEventListener('input', function() {
+    checkPasswordStrength(this.value);
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cookie-consent.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsentBanner" class="cookie-consent-banner">
+        <div class="cookie-content">
+            <div class="cookie-header">
+                <h3><i class="fas fa-cookie-bite"></i> Cookie Settings</h3>
+                <button id="cookieClose" class="cookie-close-btn" aria-label="Close cookie settings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cookie-body">
+                <p>
+                    We use cookies to enhance your experience on our website. By clicking "Accept All", you 
+                    consent to the use of ALL cookies. Customize your preferences below.
+                </p>
+                <div class="cookie-preferences">
+                    <div class="cookie-category">
+                        <div class="cookie-toggle">
+                            <label class="toggle-switch" for="necessaryCookies">
+                                <input type="checkbox" id="necessaryCookies" checked disabled>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cookie-type">Necessary Cookies</span>
+                        </div>
+                        <p class="cookie-description">
+                            These cookies are essential for the website to function properly and cannot be disabled.
+                        </p>
+                    </div>
+                    <div class="cookie-category">
+                        <div class="cookie-toggle">
+                            <label class="toggle-switch" for="functionalCookies">
+                                <input type="checkbox" id="functionalCookies">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cookie-type">Functional Cookies</span>
+                        </div>
+                        <p class="cookie-description">
+                            These cookies enable personalized features and functionality.
+                        </p>
+                    </div>
+                    <div class="cookie-category">
+                        <div class="cookie-toggle">
+                            <label class="toggle-switch" for="analyticsCookies">
+                                <input type="checkbox" id="analyticsCookies">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cookie-type">Analytics Cookies</span>
+                        </div>
+                        <p class="cookie-description">
+                            These cookies help us understand how visitors interact with our website.
+                        </p>
+                    </div>
+                    <div class="cookie-category">
+                        <div class="cookie-toggle">
+                            <label class="toggle-switch" for="marketingCookies">
+                                <input type="checkbox" id="marketingCookies">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cookie-type">Marketing Cookies</span>
+                        </div>
+                        <p class="cookie-description">
+                            These cookies are used to track visitors across websites to display relevant advertisements.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="cookie-footer">
+                <button id="rejectAllCookies" class="cookie-btn reject-btn">
+                    <i class="fas fa-ban"></i> Reject
+                </button>
+                <button id="saveCookiePreferences" class="cookie-btn save-btn">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <button id="acceptAllCookies" class="cookie-btn accept-btn">
+                    <i class="fas fa-check"></i> Accept All
+                </button>
+            </div>
+            <div class="cookie-info">
+                <a href="cookie-policy.html" id="cookiePolicyLink"><i class="fas fa-file-alt"></i> Cookie Policy</a>
+                <a href="privacy.html" ><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simplified Cookie Banner (Mobile-Friendly) -->
+    <div id="simpleCookieBanner" class="simple-cookie-banner">
+        <div class="simple-cookie-content">
+            <div class="cookie-header">
+                <h3><i class="fas fa-cookie-bite"></i> Cookie Settings</h3>
+                <button id="cookieClose" class="cookie-close-btn" aria-label="Close cookie settings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="simple-cookie-text">
+                <p>
+                    We use cookies to enhance your browsing experience. Please choose your preferences below.
+                </p>
+                <div class="cookie-preferences">
+                    <div class="cookie-category">
+                        <div class="cookie-toggle">
+                            <label class="toggle-switch" for="simpleCookies1">
+                                <input type="checkbox" id="simpleCookies1" checked disabled>
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cookie-type">Necessary</span>
+                        </div>
+                    </div>
+                    <div class="cookie-category">
+                        <div class="cookie-toggle">
+                            <label class="toggle-switch" for="simpleCookies2">
+                                <input type="checkbox" id="simpleCookies2">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cookie-type">Functional</span>
+                        </div>
+                    </div>
+                    <div class="cookie-category">
+                        <div class="cookie-toggle">
+                            <label class="toggle-switch" for="simpleCookies3">
+                                <input type="checkbox" id="simpleCookies3">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="cookie-type">Analytics</span>
+                        </div>
+                    </div>
+                </div>
+                <p><a href="#" id="viewPreferencesLink">View detailed settings</a></p>
+            </div>
+            <div class="simple-cookie-buttons">
+                <button id="simpleRejectBtn" class="cookie-btn reject-btn">Reject</button>
+                <button id="simpleAcceptBtn" class="cookie-btn accept-btn">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Policy Modal -->
+    <div id="cookiePolicyModal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-header">
+                <h3><i class="fas fa-file-alt"></i> Cookie Policy</h3>
+                <button class="cookie-close-btn cookie-modal-close" aria-label="Close cookie policy">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cookie-policy-content">
+                <h4>What Are Cookies</h4>
+                <p>
+                    Cookies are small text files that are stored on your computer or mobile device when you visit a website. 
+                    They are widely used to make websites work more efficiently and provide information to the website owners.
+                </p>
+                
+                <h4>How We Use Cookies</h4>
+                <p>Kenya On A Budget Safaris uses cookies for the following purposes:</p>
+                <ul>
+                    <li><strong>Necessary Cookies:</strong> These enable basic functions and are necessary for the website to function properly.</li>
+                    <li><strong>Functional Cookies:</strong> These help us remember your preferences and settings.</li>
+                    <li><strong>Analytics Cookies:</strong> These help us understand how visitors interact with our website, which allows us to improve it.</li>
+                    <li><strong>Marketing Cookies:</strong> These are used to track visitors across websites to enable us to display relevant advertisements.</li>
+                </ul>
+                
+                <h4>Managing Your Cookie Preferences</h4>
+                <p>
+                    You can manage your cookie preferences at any time by clicking on "Cookie Settings" at the bottom of our website. 
+                    You can also delete cookies that have already been set in your browser settings.
+                </p>
+                
+                <h4>Third-Party Cookies</h4>
+                <p>
+                    We use services from third parties that may set cookies on your device. These include:
+                </p>
+                <ul>
+                    <li>Google Analytics (for website usage analysis)</li>
+                    <li>Firebase (for authentication and database services)</li>
+                    <li>Stripe (for payment processing)</li>
+                </ul>
+                
+                <h4>How Long Will Cookies Remain</h4>
+                <p>
+                    The length of time a cookie remains on your device depends on whether it is a "persistent" or "session" cookie:
+                </p>
+                <ul>
+                    <li>Session cookies last only until you close your browser.</li>
+                    <li>Persistent cookies remain until they expire or are deleted.</li>
+                </ul>
+                
+                <h4>Updates to This Policy</h4>
+                <p>
+                    We may update this Cookie Policy from time to time to reflect changes in technology, regulation, or our business practices. 
+                    Any changes will be posted on this page with an updated revision date.
+                </p>
+                <p style="font-weight: bold;font-size: 22px;">Read our full <a href="cookie-policy.html" style="text-decoration: underline;">Cookie policy</a> here</p>
+                
+                <h4>Contact Us</h4>
+                <p>
+                    If you have any questions about our use of cookies, please contact us at 
+                    <a href="mailto:info@kenyaonabudgetsafaris.co.uk">info@kenyaonabudgetsafaris.co.uk</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Button (Fixed) -->
+    <button id="openCookieSettings" class="open-cookie-settings">
+        <i class="fas fa-cookie-bite"></i> <span class="ambra">Cookie Settings</span>
+    </button>
+
+    <!-- Add the JavaScript for cookie management -->
+    <script src="cookie-consent.js"></script>
+</body>
+</html>

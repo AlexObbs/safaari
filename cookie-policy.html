@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - KenyaOnABudget Safaris</title>
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --border-color: #eaeaea;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+        
+        /* Your header would go here */
+        
+        .cookie-policy-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .policy-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .policy-header::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 1rem auto;
+        }
+        
+        .policy-intro {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .policy-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .policy-section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .policy-section h3 {
+            color: var(--primary-dark);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        .policy-section p, .policy-section ul {
+            margin-bottom: 1rem;
+        }
+        
+        .policy-section ul {
+            padding-left: 2rem;
+        }
+        
+        .policy-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .table-of-contents {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .table-of-contents h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .table-of-contents ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .table-of-contents li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .table-of-contents a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s, padding-left 0.3s;
+        }
+        
+        .table-of-contents a:hover {
+            background-color: rgba(230, 126, 34, 0.1);
+            padding-left: 0.8rem;
+        }
+        
+        .contact-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .contact-section h2 {
+            color: var(--primary-color);
+        }
+        
+        .contact-details {
+            display: inline-block;
+            text-align: left;
+            margin-top: 1rem;
+        }
+        
+        .contact-details p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-details strong {
+            color: var(--primary-dark);
+            margin-right: 0.5rem;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .policy-header h1 {
+                font-size: 2rem;
+            }
+            
+            .policy-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .policy-section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .cookie-policy-container {
+                padding: 0 1rem;
+            }
+            
+            .policy-section, .policy-intro, .contact-section {
+                padding: 1.5rem;
+            }
+            
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .policy-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .policy-section, .policy-intro, .contact-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Your header would go here -->
+    
+    <div class="cookie-policy-container">
+        <div class="policy-header">
+            <h1>COOKIES POLICY</h1>
+            <p>KenyaOnABudget Safaris</p>
+        </div>
+        
+        <div class="table-of-contents">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#what-are-cookies">2. What Are Cookies?</a></li>
+                <li><a href="#types-of-cookies">3. Types of Cookies Used</a></li>
+                <li><a href="#purposes">4. Purposes of Using Cookies</a></li>
+                <li><a href="#detailed-info">5. Detailed Information on Specific Cookies</a></li>
+                <li><a href="#consent">6. Cookie Consent and Legal Basis</a></li>
+                <li><a href="#control">7. How to Control and Manage Cookies</a></li>
+                <li><a href="#data-protection">8. Data Protection and Privacy Considerations</a></li>
+                <li><a href="#changes">9. Changes to This Cookies Policy</a></li>
+                <li><a href="#contact">10. Contact Information and Further Assistance</a></li>
+            </ul>
+        </div>
+        
+        <div class="policy-intro">
+            <p>This Cookies Policy explains in detail how Kenya on a Budget Safaris uses cookies and similar tracking technologies on our website. By continuing to use our website, you agree to our use of cookies as described in this policy.</p>
+        </div>
+        
+        <div id="introduction" class="policy-section">
+            <h2>1. INTRODUCTION</h2>
+            
+            <h3>1.1 Purpose of the Cookies Policy</h3>
+            <p>This Cookies Policy explains in detail how Kenya on a Budget Safaris (the "Website") uses cookies and similar tracking technologies on our website (<a href="https://kenyaonabudgetsafaris.co.uk">kenyaonabudgetsafaris.co.uk</a>). It is intended to inform you about what cookies are, the types of cookies we use, and how we use them to enhance your browsing experience, analyze website performance, and deliver targeted advertising. This policy also outlines your choices regarding the management and deletion of cookies.</p>
+            
+            <h3>1.2 Scope and Applicability</h3>
+            <p>This Cookies Policy applies to all visitors, registered users, and others accessing our Website. By continuing to use the Website, you agree to our use of cookies as described in this policy. If you do not agree with the use of cookies as detailed herein, please adjust your browser settings accordingly or refrain from using the Website.</p>
+        </div>
+        
+        <div id="what-are-cookies" class="policy-section">
+            <h2>2. WHAT ARE COOKIES?</h2>
+            
+            <h3>2.1 Definition of Cookies and Similar Technologies</h3>
+            <p>Cookies are small text files that are stored on your device (computer, mobile phone, tablet, etc.) by your web browser when you visit a website. They are widely used to make websites work more efficiently, as well as to provide information to the website owners. In addition to cookies, similar tracking technologies such as web beacons, pixel tags, and local storage may also be used.</p>
+            
+            <h3>2.2 How Cookies Work</h3>
+            <p>When you visit our Website, your browser may store one or more cookies on your device. These cookies help the Website remember your actions and preferences over a period of time, so you don't have to re-enter your details every time you return. Cookies also enable us to collect aggregated data about website traffic and usage, which is crucial for improving the Website's functionality and user experience.</p>
+        </div>
+        
+        <div id="types-of-cookies" class="policy-section">
+            <h2>3. TYPES OF COOKIES USED ON OUR WEBSITE</h2>
+            
+            <h3>3.1 Necessary/Essential Cookies</h3>
+            <p>These cookies are essential for the operation of the Website. They enable basic functions such as page navigation, secure access to user accounts, and the proper functioning of our online booking services. Without these cookies, the Website cannot function properly.</p>
+            
+            <h3>3.2 Analytical Cookies (e.g., Google Analytics)</h3>
+            <p>Analytical cookies allow us to collect data about how visitors use the Website. This includes tracking metrics such as page views, time spent on pages, and conversion rates. We use this data primarily to improve the Website's performance, understand user behavior, and optimize our content. Google Analytics is one such tool that helps us track and analyze traffic and user engagement.</p>
+            
+            <h3>3.3 Advertising and Marketing Cookies (e.g., Google Adsense)</h3>
+            <p>Advertising cookies are used to deliver relevant advertisements to you based on your interests. These cookies also help measure the effectiveness of advertising campaigns and limit the number of times you see an ad. Google Adsense is one of the advertising services that may use cookies to serve personalized ads on our Website.</p>
+            
+            <h3>3.4 Functional Cookies</h3>
+            <p>Functional cookies enhance your experience by remembering choices you make (such as language preferences or region settings) and providing more personalized features. These cookies do not collect any personally identifiable information.</p>
+        </div>
+        
+        <div id="purposes" class="policy-section">
+            <h2>4. PURPOSES OF USING COOKIES</h2>
+            
+            <h3>4.1 Enhancing User Experience</h3>
+            <p>Cookies allow the Website to remember your preferences and settings, making your subsequent visits more convenient and personalized. For instance, cookies help keep you logged in to your account and store your language preferences.</p>
+            
+            <h3>4.2 Website Performance and Analytics</h3>
+            <p>The data collected via analytical cookies helps us understand how users interact with the Website. This information is used to identify areas for improvement, monitor website performance, and ensure that our content meets user needs.</p>
+            
+            <h3>4.3 Advertising and Monetization</h3>
+            <p>Cookies help us deliver targeted advertising that is more relevant to your interests. By tracking your browsing habits and interactions on the Website, we can provide ads that are tailored to your preferences while also helping us generate revenue to maintain and improve our services.</p>
+        </div>
+        
+        <div id="detailed-info" class="policy-section">
+            <h2>5. DETAILED INFORMATION ON SPECIFIC COOKIES</h2>
+            
+            <h3>5.1 Cookies Set by Our Website</h3>
+            <p>We set several cookies on our Website to ensure smooth operation and a personalized experience. These include:</p>
+            <ul>
+                <li><strong>Session Cookies:</strong> Temporary cookies that expire once you close your browser. They are used to maintain session state as you navigate the Website.</li>
+                <li><strong>Persistent Cookies:</strong> Cookies that remain on your device for a set period or until you delete them. They are used to remember your preferences and login details across visits.</li>
+            </ul>
+            
+            <h3>5.2 Third-Party Cookies and Their Purposes</h3>
+            <p>In addition to our own cookies, our Website uses cookies provided by third-party service providers, including:</p>
+            <ul>
+                <li><strong>Google Analytics Cookies:</strong> Used to track user interactions and gather statistical data about Website usage.</li>
+                <li><strong>Google Adsense Cookies:</strong> Used to serve targeted advertisements based on your browsing history.</li>
+                <li><strong>Other Marketing Cookies:</strong> These may be set by external advertising networks to measure the success of advertising campaigns and to provide personalized ad experiences.</li>
+            </ul>
+        </div>
+        
+        <div id="consent" class="policy-section">
+            <h2>6. COOKIE CONSENT AND LEGAL BASIS</h2>
+            
+            <h3>6.1 GDPR Compliance and Consent Requirements</h3>
+            <p>In accordance with the General Data Protection Regulation (GDPR) and other applicable data protection laws, we require your consent to use cookies on our Website, except for those cookies that are strictly necessary for its operation. When you first visit the Website, you will be presented with a cookie consent banner that explains our cookie usage and asks for your permission to use non-essential cookies.</p>
+            
+            <h3>6.2 Obtaining and Managing Your Consent</h3>
+            <p>By continuing to use the Website without changing your browser settings, you agree to our use of cookies as described in this policy. You can withdraw your consent or modify your cookie preferences at any time by using the settings provided in our cookie consent banner or through your browser's settings. Detailed instructions for managing your consent are provided below.</p>
+        </div>
+        
+        <div id="control" class="policy-section">
+            <h2>7. HOW TO CONTROL AND MANAGE COOKIES</h2>
+            
+            <h3>7.1 Browser Settings and Cookie Preferences</h3>
+            <p>Most web browsers allow you to control cookies through their settings preferences. You can choose to block all cookies, allow only certain types of cookies, or delete cookies after each session. Instructions for managing cookies are usually available in your browser's "Help" section. Please note that disabling certain cookies may impact your ability to use some features of the Website.</p>
+            
+            <h3>7.2 Opt-Out Instructions for Google Analytics and Google Adsense</h3>
+            <ul>
+                <li><strong>Google Analytics:</strong> To opt out of Google Analytics tracking, you can download and install the Google Analytics Opt-out Browser Add-on, available for most browsers. For more details, please visit Google's Opt-out Page.</li>
+                <li><strong>Google Adsense:</strong> Google provides an option for users to opt out of personalized advertising. Visit Google's Ads Settings to manage your ad preferences and opt out of interest-based ads.</li>
+            </ul>
+            
+            <h3>7.3 Using Third-Party Tools for Cookie Management</h3>
+            <p>There are also third-party tools and browser extensions available that can help you manage and block cookies across multiple websites. We encourage you to explore these options if you wish to further customize your cookie settings.</p>
+        </div>
+        
+        <div id="data-protection" class="policy-section">
+            <h2>8. DATA PROTECTION AND PRIVACY CONSIDERATIONS</h2>
+            
+            <h3>8.1 How We Process Data Collected by Cookies</h3>
+            <p>The data collected by cookies is used solely for the purposes outlined in this Cookies Policy. We process this data in accordance with our Privacy Policy and applicable data protection laws. The information gathered is aggregated and does not identify individual users, unless you have explicitly provided personal information through account registration or other interactions.</p>
+            
+            <h3>8.2 Retention Periods and Data Storage</h3>
+            <p>The retention period for cookies varies depending on the type of cookie. Session cookies are deleted once you close your browser, while persistent cookies remain on your device for a predetermined period as specified by the cookie's settings. We do not store any personal data in cookies that would allow us to personally identify you unless you have voluntarily submitted such information.</p>
+        </div>
+        
+        <div id="changes" class="policy-section">
+            <h2>9. CHANGES TO THIS COOKIES POLICY</h2>
+            <p>We reserve the right to modify or update this Cookies Policy at any time to reflect changes in technology, legal requirements, or our data processing practices. Any updates will be posted on this page with an updated effective date. We encourage you to review this Cookies Policy periodically to stay informed about how we use cookies and other tracking technologies.</p>
+        </div>
+        
+        <div id="contact" class="contact-section">
+            <h2>10. CONTACT INFORMATION AND FURTHER ASSISTANCE</h2>
+            <p>If you have any questions, concerns, or requests regarding this Cookies Policy, our use of cookies, or your rights regarding your personal data, please contact us using the following details:</p>
+            
+            <div class="contact-details">
+                <p><strong>KenyaOnABudget Safaris</strong></p>
+                <p><strong>Email:</strong> Contact@kenyaonabudgetsafaris.co.uk</p>
+                <p><strong>Phone:</strong> +447376642148</p>
+            </div>
+            
+            <p>Our Data Protection Officer (if applicable) is available to address any inquiries you may have regarding our cookie practices and data protection measures.</p>
+            
+            <p>This Cookies Policy has been developed to provide comprehensive information on the use of cookies and related technologies on Kenya on a Budget Safaris. <br>
+               <span style="font-weight: bold;"> By using our Website, you acknowledge that you have read and understood this policy and consent to our use of cookies as described herein. You may change your Cookie preferences any time in accordance with the instructions given above.</span></p>
+        </div>
+    </div>
+    
+   
+    
+    <!-- Your footer would go here -->
+    
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Back to top button visibility toggle
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
