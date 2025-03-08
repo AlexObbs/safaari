@@ -533,7 +533,7 @@
             const provider = new firebase.auth.GoogleAuthProvider();
             try {
                 await firebase.auth().signInWithPopup(provider);
-                window.location.href = 'wel.html';
+                window.location.href = 'before.html';
             } catch (error) {
                 alert('Google sign-in failed. Please try again.');
                 console.error(error);
